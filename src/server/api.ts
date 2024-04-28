@@ -13,18 +13,50 @@ apiRouter.post("/add_game", requireUser, async (req: Request, res: Response, nex
     try {
         const { name } = req.body;
         const reqUser = req as any;
-        const newGame = await prisma.game.create({
+        const newRole = await prisma.game.create({
             data: {
                 storyteller: { connect: { id: reqUser.user.id } },
                 name: name
             }
         });
-        res.send(newGame);
+        res.send(newRole);
     } catch (error) {
         next(error);
     }
 });
-
+//<-----------------ADD ROLES----------------->
+apiRouter.post("/add_roles", async (req: Request, res: Response, next: NextFunction) => {
+    try {
+        const { name, gameId } = req.body;
+        const reqUser = req as any;
+        const newRole = await prisma.role.create({
+            data: {
+                storytellerId: reqUser.user.id,
+                name: name,
+                gameId: gameId
+            }
+        });
+        res.send(newRole);
+    } catch (error) {
+        next(error);
+    }
+});
+//<-----------------ADD PLAYER----------------->
+apiRouter.post("/add_player", async (req: Request, res: Response, next: NextFunction) => {
+    try {
+        const { name, gameId, roleId } = req.body;
+        const newPlayer = await prisma.player.create({
+            data: {
+                name: name,
+                gameId: gameId,
+                roleId: roleId
+            }
+        });
+        res.send(newPlayer);
+    } catch (error) {
+        next(error);
+    }
+});
 //<-----------------GET ALL GAMES----------------->
 apiRouter.get("/my_games", requireUser, async (req: Request, res: Response, next: NextFunction) => {
     try {
