@@ -8,6 +8,8 @@ const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
 
 import { Request, Response, NextFunction } from 'express';
+
+//<------------------------------------------GAME ENDPOINTS------------------------------------------>
 //<-----------------ADD A GAME----------------->
 apiRouter.post("/add_game", requireUser, async (req: Request, res: Response, next: NextFunction) => {
     try {
@@ -20,39 +22,6 @@ apiRouter.post("/add_game", requireUser, async (req: Request, res: Response, nex
             }
         });
         res.send(newRole);
-    } catch (error) {
-        next(error);
-    }
-});
-//<-----------------ADD ROLES----------------->
-apiRouter.post("/add_roles", async (req: Request, res: Response, next: NextFunction) => {
-    try {
-        const { name, gameId } = req.body;
-        const reqUser = req as any;
-        const newRole = await prisma.role.create({
-            data: {
-                storytellerId: reqUser.user.id,
-                name: name,
-                gameId: gameId
-            }
-        });
-        res.send(newRole);
-    } catch (error) {
-        next(error);
-    }
-});
-//<-----------------ADD PLAYER----------------->
-apiRouter.post("/add_player", async (req: Request, res: Response, next: NextFunction) => {
-    try {
-        const { name, gameId, roleId } = req.body;
-        const newPlayer = await prisma.player.create({
-            data: {
-                name: name,
-                gameId: gameId,
-                roleId: roleId
-            }
-        });
-        res.send(newPlayer);
     } catch (error) {
         next(error);
     }
@@ -73,5 +42,192 @@ apiRouter.get("/my_games", requireUser, async (req: Request, res: Response, next
         next(error)
     }
 });
+//<-----------------GET SINGLE GAME----------------->
+apiRouter.get("/my_game/:id", requireUser, async (req: Request, res: Response, next: NextFunction) => {
+    try {
+        const reqUser = req as any;
+        const gameId = parseInt(req.params.id);
+        const game = await prisma.game.findUnique({
+            where: { id: gameId, storytellerId: reqUser.user.id },
+            include: {
+                roles: true,
+                players: true
+            }
+        })
+        res.send(game)
+    } catch (error) {
+        next(error)
+    }
+});
+//<--------------------------------DELETE GAME-------------------------------->
+apiRouter.delete("/my_game/:id", requireUser, async (req: Request, res: Response, next: NextFunction) => {
+    try {
+        const id = Number(req.params.id);
+        const game = await prisma.game.findUnique({
+            where: { id },
+        });
+        if (!game) {
+            return res.status(404).send("Game not found");
+        }
+        const deletedGame = await prisma.game.delete({
+            where: { id },
+        });
+        res.send(deletedGame);
+    } catch (error) {
+        next(error);
+    }
+});
+
+
+
+//<------------------------------------------ROLE ENDPOINTS------------------------------------------>
+//<-----------------ADD ROLES----------------->
+apiRouter.post("/add_roles", async (req: Request, res: Response, next: NextFunction) => {
+    try {
+        const { name, gameId } = req.body;
+        const reqUser = req as any;
+        const newRole = await prisma.role.create({
+            data: {
+                storytellerId: reqUser.user.id,
+                name: name,
+                gameId: gameId
+            }
+        });
+        res.send(newRole);
+    } catch (error) {
+        next(error);
+    }
+});
+//<-----------------GET SINGLE ROLE----------------->
+apiRouter.get("/role/:id", requireUser, async (req: Request, res: Response, next: NextFunction) => {
+    try {
+        const reqUser = req as any;
+        const roleId = parseInt(req.params.id);
+        const role = await prisma.role.findUnique({
+            where: {
+                roleId: roleId,
+                storytellerId: reqUser.user.id
+            }
+        })
+        res.send(role)
+    } catch (error) {
+        next(error)
+    }
+});
+//<-----------------UPDATE ROLE----------------->
+apiRouter.patch("/role/:id", requireUser, async (req: Request, res: Response, next: NextFunction) => {
+    try {
+        const { name } = req.body;
+        const updatedRole = await prisma.player.update({
+            where: { playerId: Number(req.params.id) },
+            data: {
+                name: name || undefined,
+            },
+        });
+        if (!updatedRole) {
+            res.status(404).send({ message: "Player not found" });
+        } else {
+            res.send(updatedRole);
+        }
+    } catch (error) {
+        next(error);
+    }
+});
+//<--------------------------------DELETE ROLE-------------------------------->
+apiRouter.delete("/role/:id", requireUser, async (req: Request, res: Response, next: NextFunction) => {
+    try {
+        const roleId = Number(req.params.id);
+        const role = await prisma.role.findUnique({
+            where: { roleId },
+        });
+        if (!role) {
+            return res.status(404).send("Role not found");
+        }
+        const deletedRole = await prisma.role.delete({
+            where: { roleId },
+        });
+        res.send(deletedRole);
+    } catch (error) {
+        next(error);
+    }
+});
+
+
+
+//<------------------------------------------PLAYER ENDPOINTS------------------------------------------>
+//<-----------------ADD PLAYER----------------->
+apiRouter.post("/add_player", async (req: Request, res: Response, next: NextFunction) => {
+    try {
+        const { name, gameId, roleId } = req.body;
+        const newPlayer = await prisma.player.create({
+            data: {
+                name: name,
+                gameId: gameId,
+                roleId: roleId
+            }
+        });
+        res.send(newPlayer);
+    } catch (error) {
+        next(error);
+    }
+});
+//<-----------------GET SINGLE PLAYER----------------->
+apiRouter.get("/player/:id", requireUser, async (req: Request, res: Response, next: NextFunction) => {
+    try {
+        const playerId = parseInt(req.params.id);
+        const player = await prisma.player.findUnique({
+            where: {
+                playerId: playerId
+            },
+            include: {
+                role: true,
+            }
+        })
+        res.send(player)
+    } catch (error) {
+        next(error)
+    }
+});
+
+//<-----------------UPDATE PLAYER----------------->
+apiRouter.patch("/player/:id", requireUser, async (req: Request, res: Response, next: NextFunction) => {
+    try {
+        const { name, gameId, roleId } = req.body;
+        const updatedPlayer = await prisma.player.update({
+            where: { playerId: Number(req.params.id) },
+            data: {
+                name: name || undefined,
+                role: { connect: { roleId: roleId } } || undefined
+            },
+        });
+        if (!updatedPlayer) {
+            res.status(404).send({ message: "Player not found" });
+        } else {
+            res.send(updatedPlayer);
+        }
+    } catch (error) {
+        next(error);
+    }
+});
+//<--------------------------------DELETE PLAYER-------------------------------->
+apiRouter.delete("/player/:id", requireUser, async (req: Request, res: Response, next: NextFunction) => {
+    try {
+        const playerId = Number(req.params.id);
+        const player = await prisma.player.findUnique({
+            where: { playerId },
+        });
+        if (!player) {
+            return res.status(404).send("Player not found");
+        }
+        const deletedPlayer = await prisma.player.delete({
+            where: { playerId },
+        });
+        res.send(deletedPlayer);
+    } catch (error) {
+        next(error);
+    }
+});
+
+
 
 module.exports = apiRouter;
