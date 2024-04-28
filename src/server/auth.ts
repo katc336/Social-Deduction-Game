@@ -1,4 +1,4 @@
-export {};
+export { };
 const express = require('express');
 const authRouter = express.Router();
 
@@ -15,9 +15,11 @@ const prisma = new PrismaClient();
 const bcrypt = require("bcrypt");
 const SALT_COUNT = 10;
 
+import { Request, Response, NextFunction } from 'express';
+
 //<--------------------------------REGISTER USER-------------------------------->
 // POST /auth/register
-authRouter.post("/sign_up", async (req: any, res: any, next: any) => {
+authRouter.post("/sign_up", async (req: Request, res: Response, next: NextFunction) => {
     try {
         const { username, name, password, } = req.body
         const hashedPassword = await bcrypt.hash(password, SALT_COUNT)
@@ -39,14 +41,14 @@ authRouter.post("/sign_up", async (req: any, res: any, next: any) => {
 })
 //<--------------------------------LOGIN USERS-------------------------------->
 //POST /auth/login
-authRouter.post("/login", async (req: any, res: any, next: any) => {
+authRouter.post("/login", async (req: Request, res: Response, next: NextFunction) => {
     try {
         const { username, password } = req.body
         const user = await prisma.user.findUnique({
             where: {
-              username: username
+                username: username
             },
-          });  
+        });
 
         const validPassword = await bcrypt.compare(
             password,
@@ -70,10 +72,11 @@ authRouter.post("/login", async (req: any, res: any, next: any) => {
 
 //<--------------------------------GET USER ACCOUNT-------------------------------->
 //GET /auth/my_account
-authRouter.get("/account", requireUser, async (req:any, res:any, next:any) => {
+authRouter.get("/account", requireUser, async (req: Request, res: Response, next: NextFunction) => {
     try {
+        const reqUser = req as any;
         const user = await prisma.user.findUnique({
-            where: { id: req.user.id }
+            where: { id: reqUser.user.id }
         });
         delete user.password
         res.send(user);
