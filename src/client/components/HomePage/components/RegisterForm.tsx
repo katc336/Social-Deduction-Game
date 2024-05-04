@@ -8,6 +8,7 @@ import { useRegisterMutation } from "../../../../redux/api";
 import { useNavigate } from "react-router-dom";
 import MobileTheme from "../../MobileTheme";
 import authScroll from "../AuthScroll.png";
+import authScrollMobile from "../AuthScrollMobile.png";
 
 const RegisterForm: React.FC<SwitchForm> = ({ switchForm }) => {
     const [name, setName] = useState("");
@@ -53,12 +54,11 @@ const RegisterForm: React.FC<SwitchForm> = ({ switchForm }) => {
         <div>
             <Box sx={{ my: 10 }}>
                 <Box sx={{
-                    backgroundImage: `url(${authScroll})`,
-                    backgroundSize: 'contain',
-                    backgroundRepeat: 'no-repeat',
-                    backgroundPosition: 'center',
-                    borderRadius: "20px",
-                    p: 5
+                    backgroundImage: isMobile ? `url(${authScrollMobile})` : `url(${authScroll})`,
+                    backgroundSize: "contain",
+                    backgroundRepeat: "no-repeat",
+                    backgroundPosition: "center",
+                    p: isMobile ? 10 : 5,
                 }}>
                     <Typography
                         variant="h4"
@@ -88,7 +88,7 @@ const RegisterForm: React.FC<SwitchForm> = ({ switchForm }) => {
                             Please make sure your password is 8-30 characters long.
                         </Alert>
                     }
-                    <Box sx={{ mx: 70 }}>
+                    <Box sx={{ mx: isMobile ? 10 : 70 }}>
                         <form onSubmit={handleSubmit}>
                             <Stack direction="column">
                                 <TextField
@@ -97,6 +97,7 @@ const RegisterForm: React.FC<SwitchForm> = ({ switchForm }) => {
                                     value={username}
                                     onChange={(event) => setUsername(event.target.value)}
                                     size="small"
+                                    color="secondary"
                                     sx={{ my: 1 }} />
                                 <TextField
                                     fullWidth
@@ -104,6 +105,7 @@ const RegisterForm: React.FC<SwitchForm> = ({ switchForm }) => {
                                     value={password}
                                     onChange={(event) => setPassword(event.target.value)}
                                     size="small"
+                                    color="secondary"
                                     sx={{ my: 1 }} />
                                 <Typography sx={{ textAlign: "center" }}>
                                     <button
@@ -122,14 +124,14 @@ const RegisterForm: React.FC<SwitchForm> = ({ switchForm }) => {
                         textAlign: "center",
                         mt: 1
                     }}>
-                        Already have an account?
+                        Have an account?
                     </Typography>
                     <Typography sx={{
                         textAlign: "center",
                     }}>
-                        <button 
-                        onClick={switchForm}
-                        className="blank-button">
+                        <button
+                            onClick={switchForm}
+                            className="blank-button">
                             <Typography sx={{
                                 textDecoration: "underline",
                                 color: "#1E0542",

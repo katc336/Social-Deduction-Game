@@ -8,6 +8,7 @@ import { useNavigate } from 'react-router-dom';
 import { useLoginMutation } from '../../../../redux/api';
 import MobileTheme from "../../MobileTheme";
 import authScroll from "../AuthScroll.png";
+import authScrollMobile from "../AuthScrollMobile.png";
 
 
 const LoginForm: React.FC<SwitchForm> = ({ switchForm }) => {
@@ -47,12 +48,11 @@ const LoginForm: React.FC<SwitchForm> = ({ switchForm }) => {
     return (
         <div>
             <Box sx={{
-                backgroundImage: `url(${authScroll})`,
-                backgroundSize: 'contain',
-                backgroundRepeat: 'no-repeat',
-                backgroundPosition: 'center',
-                borderRadius: "20px",
-                p: 5,
+                backgroundImage: isMobile ? `url(${authScrollMobile})` : `url(${authScroll})`,
+                backgroundSize: "contain",
+                backgroundRepeat: "no-repeat",
+                backgroundPosition: "center",
+                p: isMobile ? 10 : 5,
                 my: 10
             }}>
                 <Typography
@@ -66,7 +66,7 @@ const LoginForm: React.FC<SwitchForm> = ({ switchForm }) => {
                     Login
                 </Typography>
                 {loginError && <Alert severity="error">Incorrect username or password. Please try again</Alert>}
-                <Box sx={{ mx: 70 }}>
+                <Box sx={{ mx: isMobile ? 10 : 70 }}>
                     <form onSubmit={handleSubmit}>
                         <Stack direction="column">
                             <TextField
@@ -74,12 +74,14 @@ const LoginForm: React.FC<SwitchForm> = ({ switchForm }) => {
                                 value={username}
                                 onChange={(event) => setUsername(event.target.value)}
                                 size="small"
+                                color="secondary"
                                 sx={{ my: 1 }} />
                             <TextField
                                 label="Password"
                                 value={password}
                                 onChange={(event) => setPassword(event.target.value)}
                                 size="small"
+                                color="secondary"
                                 sx={{ my: 1 }} />
                             <Typography sx={{ textAlign: "center" }}>
                                 <button
