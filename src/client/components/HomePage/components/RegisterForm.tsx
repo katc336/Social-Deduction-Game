@@ -7,8 +7,8 @@ import { useState } from "react";
 import { useRegisterMutation } from "../../../../redux/api";
 import { useNavigate } from "react-router-dom";
 import MobileTheme from "../../MobileTheme";
-import authScroll from "../AuthScroll.png";
-import authScrollMobile from "../AuthScrollMobile.png";
+import authScroll from "../../../images/scroll.png"
+import authScrollMobile from "../../../images/scrollMobile.png";
 
 const RegisterForm: React.FC<SwitchForm> = ({ switchForm }) => {
     const [name, setName] = useState("");

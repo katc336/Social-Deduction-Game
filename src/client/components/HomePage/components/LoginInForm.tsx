@@ -7,8 +7,8 @@ import { useState } from "react";
 import { useNavigate } from 'react-router-dom';
 import { useLoginMutation } from '../../../../redux/api';
 import MobileTheme from "../../MobileTheme";
-import authScroll from "../AuthScroll.png";
-import authScrollMobile from "../AuthScrollMobile.png";
+import authScroll from "../../../images/scroll.png"
+import authScrollMobile from "../../../images/scrollMobile.png"
 
 
 const LoginForm: React.FC<SwitchForm> = ({ switchForm }) => {
