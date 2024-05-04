@@ -3,3 +3,7 @@ interface RootState {
         token: string
     }
 }
+
+type SwitchForm = {
+    switchForm: any
+}

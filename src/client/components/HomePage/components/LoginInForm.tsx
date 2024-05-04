@@ -1,19 +1,23 @@
 import Alert from '@mui/material/Alert';
 import Stack from "@mui/material/Stack";
-import Typograpgy from "@mui/material/Typography";
-import Card from "@mui/material/Card";
+import Typography from "@mui/material/Typography";
+import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
-import { Link } from 'react-router-dom';
 import { useState } from "react";
 import { useNavigate } from 'react-router-dom';
 import { useLoginMutation } from '../../../../redux/api';
+import MobileTheme from "../../MobileTheme";
+import authScroll from "../AuthScroll.png";
 
-const LoginForm = () => {
+
+const LoginForm: React.FC<SwitchForm> = ({ switchForm }) => {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [loginError, setLoginError] = useState(false);
     const [login] = useLoginMutation();
     const navigate = useNavigate();
+
+    const { isMobile } = MobileTheme();
 
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         try {
@@ -37,55 +41,82 @@ const LoginForm = () => {
             console.error(error);
             setLoginError(true);
         }
-    }
+    };
+
 
     return (
         <div>
-            <Card sx={{ borderRadius: "20px", p: 5 }}>
-                <Typograpgy
+            <Box sx={{
+                backgroundImage: `url(${authScroll})`,
+                backgroundSize: 'contain',
+                backgroundRepeat: 'no-repeat',
+                backgroundPosition: 'center',
+                borderRadius: "20px",
+                p: 5,
+                my: 10
+            }}>
+                <Typography
                     variant="h4"
-                    sx={{ textAlign: "center", color: "#0A1D56", mb: 3 }}>
+                    sx={{
+                        fontFamily: "fantasy",
+                        textAlign: "center",
+                        color: "#1E0542",
+                        mb: 1
+                    }}>
                     Login
-                </Typograpgy>
+                </Typography>
                 {loginError && <Alert severity="error">Incorrect username or password. Please try again</Alert>}
-                <form onSubmit={handleSubmit}>
-                    <Stack direction="column">
-                        <TextField
-                            label="Username"
-                            value={username}
-                            onChange={(event) => setUsername(event.target.value)}
-                            variant="filled"
-                            sx={{ my: 1 }} />
-                        <TextField
-                            label="Password"
-                            value={password}
-                            onChange={(event) => setPassword(event.target.value)}
-                            variant="filled"
-                            sx={{ my: 1 }} />
-                        <button
-                            className="auth-button"
-                            type="submit">
-                            Login
-                        </button>
-                    </Stack>
-                </form>
-                <Typograpgy sx={{
-                    color: "#0A1D56",
+                <Box sx={{ mx: 70 }}>
+                    <form onSubmit={handleSubmit}>
+                        <Stack direction="column">
+                            <TextField
+                                label="Username"
+                                value={username}
+                                onChange={(event) => setUsername(event.target.value)}
+                                size="small"
+                                sx={{ my: 1 }} />
+                            <TextField
+                                label="Password"
+                                value={password}
+                                onChange={(event) => setPassword(event.target.value)}
+                                size="small"
+                                sx={{ my: 1 }} />
+                            <Typography sx={{ textAlign: "center" }}>
+                                <button
+                                    className="auth-button"
+                                    type="submit">
+                                    <Typography sx={{ color: "#1E0542", }}>
+                                        Login
+                                    </Typography>
+                                </button>
+                            </Typography>
+                        </Stack>
+                    </form>
+                </Box>
+                <Typography sx={{
+                    color: "#1E0542",
                     textAlign: "center",
-                    mt: 3
+                    mt: 1
                 }}>
                     Don't have an account?
-                </Typograpgy>
-                <Link to="/register">
-                    <Typograpgy sx={{
-                        color: "#0A1D56",
-                        textAlign: "center"
-                    }}>
-                        Sign Up!
-                    </Typograpgy>
-                </Link>
-            </Card>
+                </Typography>
+                <Typography sx={{ textAlign: "center " }}>
+                    <button
+                        onClick={switchForm}
+                        className="blank-button">
+                        <Typography sx={{
+                            color: "#1E0542",
+                            textAlign: "center",
+                            textDecoration: "underline"
+                        }}>
+                            Sign Up!
+                        </Typography>
+                    </button>
+                </Typography>
+            </Box>
         </div>
-    )
-}
-export default LoginForm
+    );
+};
+
+
+export default LoginForm;

@@ -1,0 +1,15 @@
+html {
+    background-image: radial-gradient(circle, #35065c, #300657, #2c0652, #27064d, #230648, #26033e, #270235, #26002c, #24001f, #1f0014, #150008, #000000);
+}
+
+.auth-button {
+    border: solid 3px #1E0542;
+    border-radius: 5px;
+    width: 100px;
+    background-color: transparent;
+    padding: 10px;
+}
+.blank-button {
+background-color: transparent;
+border: transparent;
+}
