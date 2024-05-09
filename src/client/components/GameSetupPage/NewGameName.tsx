@@ -9,12 +9,13 @@ import { useAddNewGameMutation } from '../../../redux/api';
 import MobileTheme from '../MobileTheme';
 import scroll from "../../images/scroll.png"
 import scrollMobile from "../../images/scrollMobile.png"
+import ReturnDashButton from './ReturnDashButton';
 
 
 const NewGameName: React.FC = () => {
     const [name, setName] = useState("");
     const [nameLengthError, setNameLengthError] = useState(false);
-    const [addGameName] = useAddNewGameMutation(name);
+    const [addGameName] = useAddNewGameMutation();
 
     const { isMobile } = MobileTheme();
 
@@ -38,6 +39,7 @@ const NewGameName: React.FC = () => {
 
     return (
         <div>
+           <ReturnDashButton />
             <Box sx={{
                 backgroundImage: `url(${scroll})`,
                 backgroundSize: "contain",

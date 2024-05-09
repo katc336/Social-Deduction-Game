@@ -66,7 +66,7 @@ const LoginForm: React.FC<SwitchForm> = ({ switchForm }) => {
                     Login
                 </Typography>
                 {loginError && <Alert severity="error">Incorrect username or password. Please try again</Alert>}
-                <Box sx={{ mx: isMobile ? 10 : 70 }}>
+                <Box sx={{ mx: isMobile ? 3 : 70 }}>
                     <form onSubmit={handleSubmit}>
                         <Stack direction="column">
                             <TextField

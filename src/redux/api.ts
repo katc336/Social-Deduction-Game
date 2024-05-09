@@ -45,17 +45,34 @@ const api = createApi({
             query: (name) => ({
                 url: `/api/add_game`,
                 method: 'POST',
-                body: name 
+                body: name
             }),
             invalidatesTags: ["Game"]
         }),
-        // GET SINGLE GAME
+        //GET SINGLE GAME
         getSingleGame: builder.query({
             query: (id) => ({
                 url: `/api/my_game/${id}`,
                 method: 'GET',
             }),
             providesTags: ["Game"]
+        }),
+        //GET ALL GAMES
+        getAllGames: builder.query({
+            query: (id) => ({
+                url: `/api/my_games`,
+                method: 'GET',
+            }),
+            providesTags: ["Game"]
+        }),
+        //ADD ROLES
+        addNewRoles: builder.mutation({
+            query: (name) => ({
+                url: `/api/add_roles`,
+                method: 'POST',
+                body: name
+            }),
+            invalidatesTags: ["Game"]
         }),
     })
 });
@@ -69,6 +86,10 @@ export const {
     //New Game
     useAddNewGameMutation,
     //Get Single Game
-    useGetSingleGameQuery
+    useGetSingleGameQuery,
+    //Get Game(s)
+    useGetAllGamesQuery,
+    //Add new role
+    useAddNewRolesMutation
 } = api;
 

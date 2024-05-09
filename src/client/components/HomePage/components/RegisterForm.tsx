@@ -88,7 +88,7 @@ const RegisterForm: React.FC<SwitchForm> = ({ switchForm }) => {
                             Please make sure your password is 8-30 characters long.
                         </Alert>
                     }
-                    <Box sx={{ mx: isMobile ? 10 : 70 }}>
+                    <Box sx={{ mx: isMobile ? 3 : 70 }}>
                         <form onSubmit={handleSubmit}>
                             <Stack direction="column">
                                 <TextField
