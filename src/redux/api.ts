@@ -65,6 +65,14 @@ const api = createApi({
             }),
             providesTags: ["Game"]
         }),
+        //DELETE SINGLE GAME
+        deleteGame: builder.mutation({
+            query: (gameId) => ({
+                url: `/api/my_game/${gameId}`,
+                method: 'DELETE',
+            }),
+            invalidatesTags: ["Game"]
+        }),
         //ADD ROLES
         addNewRoles: builder.mutation({
             query: (name) => ({
@@ -89,6 +97,8 @@ export const {
     useGetSingleGameQuery,
     //Get Game(s)
     useGetAllGamesQuery,
+    //Delet Game
+    useDeleteGameMutation,
     //Add new role
     useAddNewRolesMutation
 } = api;
