@@ -34,6 +34,20 @@ html {
   scale: 1.1;
 }
 
+.nav2-button {
+  border: solid 3px #1E0542;
+  border-radius: 5px;
+  background-color: transparent;
+  padding: 10px;
+}
+
+.nav2-button:hover {
+  cursor: pointer;
+  transition: 0.5s;
+  text-decoration: none;
+  scale: 1.1;
+}
+
 .return-button {
   border: solid 3px #1E0542;
   border-radius: 5px;

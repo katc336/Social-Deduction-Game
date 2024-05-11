@@ -33,10 +33,10 @@ const SideNavBar = () => {
                     <NavButton text={"New Game"} />
                 </Link>
                 <Link to="/story_teller/old_games">
-                    <NavButton text={"Previous Games"} />
+                    <NavButton text={"Games and Scripts"} />
                 </Link>
-                <Link to="">
-                    <NavButton text={"See Old Scripts"} />
+                <Link to="/story_teller/roles">
+                    <NavButton text={"All Saved Roles"} />
                 </Link>
             </Drawer>
         </div>

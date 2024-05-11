@@ -4,10 +4,10 @@ import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import { useState } from "react";
-import MobileTheme from '../MobileTheme';
-import scroll from "../../images/scroll.png"
-import scrollMobile from "../../images/scrollMobile.png"
-import { useAddNewRolesMutation } from "../../../redux/api"
+import MobileTheme from '../../MobileTheme';
+import scroll from "../../../images/scroll.png"
+import { useAddNewRolesMutation } from "../../../../redux/api"
+import ReturnDashButton from '../Shared/ReturnDashButton';
 
 const AddRoles: React.FC<GameIdProps> = ({ gameId }) => {
     const [name, setName] = useState("");
@@ -33,6 +33,7 @@ const AddRoles: React.FC<GameIdProps> = ({ gameId }) => {
     };
     return (
         <div>
+            <ReturnDashButton />
             <Box sx={{
                 backgroundImage: `url(${scroll})`,
                 backgroundSize: "contain",
@@ -51,36 +52,36 @@ const AddRoles: React.FC<GameIdProps> = ({ gameId }) => {
                     }}>
                     Step 1:  Add Role
                 </Typography>
-                    <form onSubmit={handleSubmit}>
-                        <Stack direction="column">
-                            <TextField
-                                label="Add Character's Name"
-                                placeholder="Add Characters Name"
-                                value={name}
-                                onChange={(event) => setName(event.target.value)}
-                                size="small"
-                                color="secondary"
-                                sx={{ my: 1, mx: isMobile ? 70 : 5  }} />
-                            <Typography sx={{ textAlign: "center" }}>
-                                <button
-                                    className="auth-button"
-                                    type="submit">
-                                    <Typography sx={{ color: "#1E0542", }}>
-                                       Add
-                                    </Typography>
-                                </button>
-                            </Typography>
-                        </Stack>
-                    </form>
-                </Box>
+                <form onSubmit={handleSubmit}>
+                    <Stack direction="column">
+                        <TextField
+                            label="Add Character's Name"
+                            placeholder="Add Characters Name"
+                            value={name}
+                            onChange={(event) => setName(event.target.value)}
+                            size="small"
+                            color="secondary"
+                            sx={{ my: 1, mx: isMobile ? 70 : 5 }} />
+                        <Typography sx={{ textAlign: "center" }}>
+                            <button
+                                className="auth-button"
+                                type="submit">
+                                <Typography sx={{ color: "#1E0542", }}>
+                                    Add
+                                </Typography>
+                            </button>
+                        </Typography>
+                    </Stack>
+                </form>
+            </Box>
             {nameLengthError
-                    &&
-                    <Alert 
+                &&
+                <Alert
                     severity="error"
-                    sx={{ mx: 65, mt: 3}}>
-                        Please make sure the role is 1-20 characters
-                    </Alert>
-                }
+                    sx={{ mx: 65, mt: 3 }}>
+                    Please make sure the role is 1-20 characters
+                </Alert>
+            }
         </div>
     )
 }

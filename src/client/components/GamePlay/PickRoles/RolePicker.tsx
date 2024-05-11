@@ -1,6 +1,8 @@
+import Alert from '@mui/material/Alert';
+import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
-import AddRoles from "./AddRoles"
+import AddRoles from "./GameSetup/AddRoles"
 import { useParams } from "react-router-dom"
 import { useGetSingleGameQuery } from "../../../redux/api";
 import MobileTheme from "../MobileTheme";
@@ -8,7 +10,7 @@ import scroll from "../../images/scroll.png"
 import scrollMobile from "../../images/scrollMobile.png"
 
 
-const CharacterSetUp: React.FC = () => {
+const RolePicker: React.FC = () => {
     const { gameId } = useParams();
     const id = Number(gameId);
 
@@ -27,11 +29,9 @@ const CharacterSetUp: React.FC = () => {
     return (
         <div>
             <AddRoles gameId={id} />
-            <Typography sx={{ textAlign: "center" }}>
             <button>
                 Confirm Script
             </button>
-            </Typography>
             <Box sx={{
                 backgroundImage: `url(${scrollMobile})`,
                 backgroundSize: "cover",
@@ -68,4 +68,4 @@ const CharacterSetUp: React.FC = () => {
         </div>
     )
 }
-export default CharacterSetUp
+export default RolePicker

@@ -5,11 +5,11 @@ import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import { useState } from "react";
 import { useNavigate } from 'react-router-dom';
-import { useAddNewGameMutation } from '../../../redux/api';
-import MobileTheme from '../MobileTheme';
-import scroll from "../../images/scroll.png"
-import scrollMobile from "../../images/scrollMobile.png"
-import ReturnDashButton from './ReturnDashButton';
+import { useAddNewGameMutation } from '../../../../redux/api';
+import MobileTheme from '../../MobileTheme';
+import scroll from "../../../images/scroll.png"
+
+import ReturnDashButton from '../Shared/ReturnDashButton';
 
 
 const NewGameName: React.FC = () => {

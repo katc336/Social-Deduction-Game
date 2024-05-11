@@ -1,14 +1,14 @@
 import Grid from '@mui/material/Grid';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
-import { useDeleteGameMutation } from '../../../../redux/api';
+import { useDeleteRoleMutation } from '../../../../redux/api';
 
-const DeleteGameButton: React.FC<GameIdProps> = ({ gameId }) => {
-    const [deleteGame] = useDeleteGameMutation({});
+const DeleteRoleButton: React.FC<GameIdProps> = ({ gameId }) => {
+    const [deleteRole] = useDeleteRoleMutation({});
 
     const handleDelete = async (event: React.FormEvent<HTMLFormElement>) => {
         try {
             event.preventDefault();
-            const result = await deleteGame({ id: gameId })
+            const result = await deleteRole({ roleId: gameId })
             console.log(result)
         } catch (error) {
             console.error(error);
@@ -30,4 +30,4 @@ const DeleteGameButton: React.FC<GameIdProps> = ({ gameId }) => {
         </div>
     )
 }
-export default DeleteGameButton
+export default DeleteRoleButton

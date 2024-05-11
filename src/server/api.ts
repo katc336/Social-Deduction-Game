@@ -98,6 +98,18 @@ apiRouter.post("/add_roles", async (req: Request, res: Response, next: NextFunct
         next(error);
     }
 });
+//<-----------------GET ALL ROLES----------------->
+apiRouter.get("/roles", requireUser, async (req: Request, res: Response, next: NextFunction) => {
+    try {
+        const reqUser = req as any;
+        const roles = await prisma.Role.findMany({
+            where: { storytellerId: reqUser.user.id },
+        })
+        res.send(roles)
+    } catch (error) {
+        next(error)
+    }
+});
 //<-----------------GET SINGLE ROLE----------------->
 apiRouter.get("/role/:id", requireUser, async (req: Request, res: Response, next: NextFunction) => {
     try {

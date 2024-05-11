@@ -38,7 +38,7 @@ const RegisterForm: React.FC<SwitchForm> = ({ switchForm }) => {
                     setNameError(false);
                     setPasswordError(false);
                     console.log("Success!");
-                    navigate("/account");
+                    navigate("/story_teller");
                 } else {
                     setRegisterError(true);
                     setPasswordError(false);

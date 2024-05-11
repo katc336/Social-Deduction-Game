@@ -20,7 +20,7 @@ const api = createApi({
         // AUTHORIZATION
         register: builder.mutation({
             query: (user: any) => ({
-                url: `/auth/register`,
+                url: `/auth/sign_up`,
                 method: 'POST',
                 body: user,
             }),
@@ -82,6 +82,22 @@ const api = createApi({
             }),
             invalidatesTags: ["Game"]
         }),
+        //GET ALL ROLES
+        getAllRoles: builder.query({
+            query: (id) => ({
+                url: `/api/roles`,
+                method: 'GET',
+            }),
+            providesTags: ["Role"]
+        }),
+        //DELETE ROLe
+        deleteRole: builder.mutation({
+            query: (roleId) => ({
+                url: `/api/role/${roleId}`,
+                method: 'DELETE',
+            }),
+            invalidatesTags: ["Role"]
+        }),
     })
 });
 export default api;
@@ -99,7 +115,11 @@ export const {
     useGetAllGamesQuery,
     //Delet Game
     useDeleteGameMutation,
-    //Add new role
-    useAddNewRolesMutation
+    //Add New Role
+    useAddNewRolesMutation,
+    //Get All Roles
+    useGetAllRolesQuery,
+    //Delete Role
+    useDeleteRoleMutation,
 } = api;
 
