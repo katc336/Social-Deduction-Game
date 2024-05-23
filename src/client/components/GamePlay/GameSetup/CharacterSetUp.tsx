@@ -1,7 +1,7 @@
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import AddRoles from "./AddRoles"
-import { useParams } from "react-router-dom"
+import { useParams, Link } from "react-router-dom"
 import { useGetSingleGameQuery } from "../../../../redux/api";
 import MobileTheme from "../../MobileTheme";
 import scroll from "../../../images/scroll.png"
@@ -28,9 +28,14 @@ const CharacterSetUp: React.FC = () => {
         <div>
             <AddRoles gameId={id} />
             <Typography sx={{ textAlign: "center" }}>
-            <button>
-                Confirm Script
-            </button>
+                <Link to={`/story_teller/char-select/${gameId}`}>
+                    <button
+                        className="return-button ">
+                        <Typography variant="h6">
+                            Confirm Script
+                        </Typography>
+                    </button>
+                </Link>
             </Typography>
             <Box sx={{
                 backgroundImage: `url(${scrollMobile})`,
