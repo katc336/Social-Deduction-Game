@@ -59,7 +59,7 @@ const api = createApi({
         }),
         //GET ALL GAMES
         getAllGames: builder.query({
-            query: (id) => ({
+            query: () => ({
                 url: `/api/my_games`,
                 method: 'GET',
             }),
@@ -98,6 +98,15 @@ const api = createApi({
             }),
             invalidatesTags: ["Role"]
         }),
+        //ADD PLAYER ROLE
+        addNewPlayer: builder.mutation({
+            query: ({name, gameId, roleId}) => ({
+                url: `/api/add_player`,
+                method: 'POST',
+                body: {name, gameId, roleId}
+            }),
+            invalidatesTags: ["Game"]
+        }),
     })
 });
 export default api;
@@ -121,5 +130,7 @@ export const {
     useGetAllRolesQuery,
     //Delete Role
     useDeleteRoleMutation,
+    //Add player
+    useAddNewPlayerMutation
 } = api;
 
