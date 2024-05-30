@@ -4,10 +4,9 @@ import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
 import TextField from '@mui/material/TextField';
 import { useParams } from "react-router-dom"
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useGetSingleGameQuery } from '../../../../redux/api';
 import MobileTheme from '../../MobileTheme';
-import scroll from "../../../images/scroll.png"
 import ReturnDashButton from '../Shared/ReturnDashButton';
 import { useAddNewPlayerMutation } from '../../../../redux/api';
 
@@ -17,34 +16,33 @@ const RolePicker: React.FC = () => {
     const [selectedRole, setSelectedRole] = useState({});
     const [selectedRoleId, setSelectedRoleId] = useState(-1);
     const [playerName, setPlayerName] = useState("");
-    const [playerNameError, setPlayerNameError] = useState(false);
+    const [openRoles, setOpenRoles] = useState([]);
+    const [chosenRoles, setChosenRoles] = useState([]);
     const isMobile = MobileTheme();
-
-    const [addPlayer] = useAddNewPlayerMutation()
-
+    const [addPlayer] = useAddNewPlayerMutation();
     const { data, error, isLoading } = useGetSingleGameQuery(id);
-    if (isLoading) {
-        console.log("Loading...");
-    }
-    if (error) {
-        console.error(error);
-    }
-    if (data) {
-        console.log(data);
-    }
-    console.log(selectedRoleId)
-    console.log(selectedRole)
+    useEffect(() => {
+        if (isLoading) {
+            console.log("Loading...");
+        }
+        if (data) {
+            const filteredRoles = data.roles.filter((role: any) => !chosenRoles.includes(role.roleId));
+            setOpenRoles(filteredRoles);
+        }
+        if (error) {
+            console.error(error);
+        }
+    }, [data, chosenRoles]);
+
+
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         try {
             event.preventDefault();
-            if (playerName.trim() === "" || playerName.length > 20) {
-                setPlayerNameError(true);
-            } else {
-                const result = await addPlayer({ name: playerName, gameId: id, roleId: Number(selectedRoleId) });
-                setSelectedRole({});
-                setSelectedRoleId(-1);
-                setPlayerName("");
-            }
+            const result = await addPlayer({ name: playerName, gameId: id, roleId: Number(selectedRoleId) });
+            setSelectedRole({});
+            setSelectedRoleId(-1);
+            setPlayerName("");
+            setChosenRoles([...chosenRoles, selectedRoleId]);
         } catch (error) {
             console.error(error);
         }
@@ -57,6 +55,8 @@ const RolePicker: React.FC = () => {
         const angle = (index / total) * Math.PI * 2;
         return Math.sin(angle) * 350 + 500; //radius
     }
+    console.log(openRoles)
+    console.log(data)
     return (
         <div>
             <ReturnDashButton />
@@ -79,7 +79,7 @@ const RolePicker: React.FC = () => {
                             size="small"
                             variant="filled"
                             color="secondary"
-                            sx={{backgroundColor:"white", mx: isMobile ? 70 : 5 }}
+                            sx={{ backgroundColor: "white", mx: isMobile ? 70 : 5 }}
                         />
                         <Typography sx={{ textAlign: "center" }}>
                             <button
@@ -93,7 +93,7 @@ const RolePicker: React.FC = () => {
                     </Stack>
                 </form>
                 <Stack spacing={2}>
-                    {data && data.roles.map((role: any, index: number) => (
+                    {openRoles && openRoles.map((role: any, index: number) => (
                         <div onClick={() => {
                             setSelectedRole(role);
                             setSelectedRoleId(role.roleId);
@@ -102,6 +102,7 @@ const RolePicker: React.FC = () => {
                                 key={role.id}
                                 elevation={10}
                                 sx={{
+                                    backgroundImage: "radial-gradient(circle,#ffdac4,#ffdac4,#ffdac4,#ffdac4, #ffdac4, #ffd9b7, #ffd8a9, #ffd99b, #ffda8d, #f8c27a, #f0ab6a, #e7935d, #c66156, #993550, #631348, #280138)",
                                     position: "absolute",
                                     left: calculateX(index, data.roles.length),
                                     top: calculateY(index, data.roles.length),
@@ -131,6 +132,5 @@ const RolePicker: React.FC = () => {
         </div>
     )
 }
-
 
 export default RolePicker;
