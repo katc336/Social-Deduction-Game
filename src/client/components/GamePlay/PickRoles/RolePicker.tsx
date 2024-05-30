@@ -3,7 +3,7 @@ import Box from '@mui/material/Box';
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
 import TextField from '@mui/material/TextField';
-import { useParams } from "react-router-dom"
+import { useParams, Link } from "react-router-dom"
 import { useState, useEffect } from 'react';
 import { useGetSingleGameQuery } from '../../../../redux/api';
 import MobileTheme from '../../MobileTheme';
@@ -26,7 +26,7 @@ const RolePicker: React.FC = () => {
             console.log("Loading...");
         }
         if (data) {
-            const filteredRoles = data.roles.filter((role: any) => !chosenRoles.includes(role.roleId));
+            const filteredRoles = data.roles.filter((role: number) => !chosenRoles.includes(role.roleId));
             setOpenRoles(filteredRoles);
         }
         if (error) {
@@ -64,34 +64,53 @@ const RolePicker: React.FC = () => {
                 my: 10,
                 py: 20
             }}>
-                <Typography
-                    variant="h4"
-                    sx={{ fontWeight: "bold", color: "#FFFBE8", my: 5, fontFamily: "fantasy", textAlign: "center" }}>
-                    Select Your Character
-                </Typography>
-                <form onSubmit={handleSubmit}>
-                    <Stack direction={"column"}>
-                        <TextField
-                            label="Player's Name"
-                            placeholder="Add Your Name"
-                            value={playerName}
-                            onChange={(event) => setPlayerName(event.target.value)}
-                            size="small"
-                            variant="filled"
-                            color="secondary"
-                            sx={{ backgroundColor: "white", mx: isMobile ? 70 : 5 }}
-                        />
-                        <Typography sx={{ textAlign: "center" }}>
-                            <button
-                                className="return-button"
-                                type="submit">
-                                <Typography sx={{ color: "#1E0542", }}>
-                                    Add Player's Role
-                                </Typography>
-                            </button>
+                {openRoles.length !== 0
+                    ?//If there are still roles...
+                    <div>
+                        <Typography
+                            variant="h4"
+                            sx={{ fontWeight: "bold", color: "#FFFBE8", my: 5, fontFamily: "fantasy", textAlign: "center" }}>
+                            Select Your Character
                         </Typography>
-                    </Stack>
-                </form>
+                        <form onSubmit={handleSubmit}>
+                            <Stack direction={"column"}>
+                                <TextField
+                                    label="Player's Name"
+                                    placeholder="Add Your Name"
+                                    value={playerName}
+                                    onChange={(event) => setPlayerName(event.target.value)}
+                                    size="small"
+                                    variant="filled"
+                                    color="secondary"
+                                    sx={{ backgroundColor: "white", mx: isMobile ? 70 : 5 }}
+                                />
+                                <Typography sx={{ textAlign: "center" }}>
+                                    <button
+                                        className="return-button"
+                                        type="submit">
+                                        <Typography sx={{ color: "#1E0542", }}>
+                                            Add Player's Role
+                                        </Typography>
+                                    </button>
+                                </Typography>
+                            </Stack>
+                        </form>
+
+                    </div>
+                    ://If all roles are selected...
+                    <div>
+                        <Typography sx={{ textAlign: "center" }}>
+                            <Link to={`/story_teller/${id}`}>
+                                <button
+                                    className="return-button">
+                                    <Typography variant="h4">
+                                        Start Game
+                                    </Typography>
+                                </button>
+                            </Link>
+                        </Typography>
+                    </div>
+                }
                 <Stack spacing={2}>
                     {openRoles && openRoles.map((role: any, index: number) => (
                         <div onClick={() => {
