@@ -204,7 +204,7 @@ apiRouter.get("/player/:id", requireUser, async (req: Request, res: Response, ne
 //<-----------------UPDATE PLAYER----------------->
 apiRouter.patch("/player/:id", requireUser, async (req: Request, res: Response, next: NextFunction) => {
     try {
-        const { name, gameId, roleId } = req.body;
+        const { name, roleId } = req.body;
         const updatedPlayer = await prisma.player.update({
             where: { playerId: Number(req.params.id) },
             data: {

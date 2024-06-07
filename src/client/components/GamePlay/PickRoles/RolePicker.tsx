@@ -26,7 +26,7 @@ const RolePicker: React.FC = () => {
             console.log("Loading...");
         }
         if (data) {
-            const filteredRoles = data.roles.filter((role: number) => !chosenRoles.includes(role.roleId));
+            const filteredRoles = data.roles.filter((role: any) => !chosenRoles.includes(role.roleId));
             setOpenRoles(filteredRoles);
         }
         if (error) {

@@ -6,6 +6,11 @@ interface RootState {
 interface GameIdProps {
     gameId: number;
  }
+
+ interface PlayerIdProps {
+    playerId: number;
+    originalName: string;
+ }
  
 interface NavButtonProps {
     text: string;

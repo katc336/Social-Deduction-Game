@@ -100,10 +100,19 @@ const api = createApi({
         }),
         //ADD PLAYER ROLE
         addNewPlayer: builder.mutation({
-            query: ({name, gameId, roleId}) => ({
+            query: ({ name, gameId, roleId }) => ({
                 url: `/api/add_player`,
                 method: 'POST',
-                body: {name, gameId, roleId}
+                body: { name, gameId, roleId }
+            }),
+            invalidatesTags: ["Game"]
+        }),
+        //UPDATE PLAYER
+        updatePlayer: builder.mutation({
+            query: ({ playerId, name, roleId }) => ({
+                url: `/player/${playerId}`,
+                method: 'POST',
+                body: { playerId, name, roleId }
             }),
             invalidatesTags: ["Game"]
         }),
@@ -131,6 +140,8 @@ export const {
     //Delete Role
     useDeleteRoleMutation,
     //Add player
-    useAddNewPlayerMutation
+    useAddNewPlayerMutation,
+    //Update player (name and role)
+    useUpdatePlayerMutation
 } = api;
 
