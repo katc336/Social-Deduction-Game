@@ -10,6 +10,8 @@ interface GameIdProps {
  interface PlayerIdProps {
     playerId: number;
     originalName: string;
+    gameId: number;
+    roleId: string;
  }
  
 interface NavButtonProps {

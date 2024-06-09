@@ -7,13 +7,27 @@ import { useUpdatePlayerMutation } from "../../../../redux/api"
 import MobileTheme from "../../MobileTheme"
 import scroll from "../../../images/scroll.png"
 
-const UpdateRole: React.FC<PlayerIdProps> = ({ playerId, originalName }) => {
+const UpdateRole: React.FC<PlayerIdProps> = ({ playerId, gameId, roleId, originalName }) => {
     const isMobile = MobileTheme();
     const [name, setName] = useState("");
     const [role, setRole] = useState("");
 
     const [updatePlayer] = useUpdatePlayerMutation();
 
+    const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+       try {
+           event.preventDefault();
+           const result = await updatePlayer({ playerId, name, roleName: role, gameId }); // Update roleName to role
+           if ("data" in result) {
+               setName("");
+               setRole(""); // Reset role state as well
+               console.log(result);
+           }
+       } catch (error) {
+           console.error(error);
+       }
+    };
+    
     return (
         <div>
             <Box sx={{
@@ -24,7 +38,7 @@ const UpdateRole: React.FC<PlayerIdProps> = ({ playerId, originalName }) => {
                 p: isMobile ? 5 : 10,
                 mt: "30vh"
             }}>
-                <form>
+                <form onSubmit={handleSubmit}>
                     <Stack direction={"column"}>
                         <TextField
                             label={`Update ${originalName}'s Name`}
@@ -43,7 +57,9 @@ const UpdateRole: React.FC<PlayerIdProps> = ({ playerId, originalName }) => {
                             color="secondary"
                             sx={{ mx: 70, my: 1 }} />
                         <Box sx={{ mx: 80 }}>
-                            <button className="auth-button">
+                            <button
+                                type="submit"
+                                className="auth-button">
                                 Update
                             </button>
                         </Box>

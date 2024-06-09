@@ -90,7 +90,7 @@ const api = createApi({
             }),
             providesTags: ["Role"]
         }),
-        //DELETE ROLe
+        //DELETE ROLE
         deleteRole: builder.mutation({
             query: (roleId) => ({
                 url: `/api/role/${roleId}`,
@@ -109,10 +109,10 @@ const api = createApi({
         }),
         //UPDATE PLAYER
         updatePlayer: builder.mutation({
-            query: ({ playerId, name, roleId }) => ({
-                url: `/player/${playerId}`,
-                method: 'POST',
-                body: { playerId, name, roleId }
+            query: ({ playerId, name, roleName, gameId }) => ({
+                url: `/api/player/${playerId}`,
+                method: 'PATCH',
+                body: { name, roleName, gameId }
             }),
             invalidatesTags: ["Game"]
         }),
