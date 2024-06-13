@@ -1,11 +1,14 @@
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
+import Stack from "@mui/material/Stack";
+import Grid from "@mui/material/Grid";
 import AddRoles from "./AddRoles"
 import { useParams, Link } from "react-router-dom"
 import { useGetSingleGameQuery } from "../../../../redux/api";
 import MobileTheme from "../../MobileTheme";
 import scroll from "../../../images/scroll.png"
 import scrollMobile from "../../../images/scrollMobile.png"
+import DeleteRoleButton from "./DeleteRoleButton";
 
 
 const CharacterSetUp: React.FC = () => {
@@ -43,9 +46,10 @@ const CharacterSetUp: React.FC = () => {
                 backgroundRepeat: "no-repeat",
                 backgroundPosition: "center",
                 minHeight: 800,
-                maxWidth: 350,
+                minWidth: 200,
                 my: 10,
-                mx: 70
+                mx: 60,
+                px: 10
             }}>
                 <Typography
                     variant={isMobile ? "h6" : "h4"}
@@ -59,15 +63,23 @@ const CharacterSetUp: React.FC = () => {
                     All Roles
                 </Typography>
                 {data && data.roles.map((role: any) => (
-                    <Typography
-                        key={role.roleId}
-                        sx={{
-                            fontFamily: "fantasy",
-                            textAlign: "center",
-                            my: 1
-                        }}>
-                        {role.name}
-                    </Typography>
+                    <div key={role.roleId}>
+                        <Grid container>
+                            <Grid item xs={10}>
+                                <Typography
+                                    sx={{
+                                        fontFamily: "fantasy",
+                                        textAlign: "center",
+                                        my: 1
+                                    }}>
+                                    {role.name}
+                                </Typography>
+                            </Grid>
+                            <Grid item xs={2}>
+                                <DeleteRoleButton roleId={role.roleId} />
+                            </Grid>
+                        </Grid>
+                    </div>
                 ))}
             </Box>
         </div>

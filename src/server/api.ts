@@ -150,7 +150,7 @@ apiRouter.delete("/role/:id", requireUser, async (req: Request, res: Response, n
     try {
         const roleId = Number(req.params.id);
         const role = await prisma.role.findUnique({
-            where: { roleId },
+            where: { roleId: roleId },
         });
         if (!role) {
             return res.status(404).send("Role not found");

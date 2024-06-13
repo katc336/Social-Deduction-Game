@@ -6,7 +6,6 @@ import { useGetAllRolesQuery } from "../../../redux/api"
 import ReturnDashButton from '../GamePlay/Shared/ReturnDashButton';
 import scroll from "../../images/scroll.png"
 import MobileTheme from '../MobileTheme';
-import DeleteRoleButton from './components/DeleteRoleButton';
 const SavedRoles: React.FC = () => {
     const { data, error, isLoading } = useGetAllRolesQuery({});
     if (isLoading) {
@@ -37,7 +36,6 @@ const SavedRoles: React.FC = () => {
                                 p: 5,
                                 m: 1,
                             }}>
-                                <DeleteRoleButton gameId={role.roleId} />
                                 <Typography
                                     sx={{ textAlign: "center" }}
                                     variant="h5">

@@ -96,7 +96,7 @@ const api = createApi({
                 url: `/api/role/${roleId}`,
                 method: 'DELETE',
             }),
-            invalidatesTags: ["Role"]
+            invalidatesTags: ["Game"]
         }),
         //ADD PLAYER ROLE
         addNewPlayer: builder.mutation({

@@ -27,7 +27,7 @@ model Game {
   storyteller   User     @relation(fields: [storytellerId], references: [id], onDelete: Cascade)
   storytellerId Int
   roles         Role[]
-  players       Player[]
+  players       Player[] 
 }
 
 model Role {

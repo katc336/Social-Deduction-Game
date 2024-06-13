@@ -7,6 +7,10 @@ interface GameIdProps {
     gameId: number;
  }
 
+ interface RoleIdProps {
+    roleId: number;
+ }
+
  interface PlayerIdProps {
     playerId: number;
     originalName: string;
