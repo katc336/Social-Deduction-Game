@@ -45,10 +45,10 @@ const CharacterSetUp: React.FC = () => {
                 backgroundSize: "cover",
                 backgroundRepeat: "no-repeat",
                 backgroundPosition: "center",
-                minHeight: 800,
-                minWidth: 200,
+                height: 800,
+                width: 200,
                 my: 10,
-                mx: 60,
+                mx: 70,
                 px: 10
             }}>
                 <Typography

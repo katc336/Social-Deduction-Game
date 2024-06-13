@@ -7,7 +7,6 @@ const DeleteRoleButton: React.FC<RoleIdProps> = ({ roleId }) => {
     const handleDelete = async (event: React.MouseEvent<HTMLButtonElement>) => {
         try {
             event.preventDefault();
-            console.log("Delete")
             const result = await deleteRole(Number(roleId))
             console.log(result)
         } catch (error) {

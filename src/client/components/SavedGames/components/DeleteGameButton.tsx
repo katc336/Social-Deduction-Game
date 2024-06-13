@@ -3,12 +3,13 @@ import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import { useDeleteGameMutation } from '../../../../redux/api';
 
 const DeleteGameButton: React.FC<GameIdProps> = ({ gameId }) => {
-    const [deleteGame] = useDeleteGameMutation({});
+    const [deleteGame] = useDeleteGameMutation();
 
-    const handleDelete = async (event: React.FormEvent<HTMLFormElement>) => {
+    const handleDelete = async (event: React.MouseEvent<HTMLButtonElement>) => {
         try {
             event.preventDefault();
-            const result = await deleteGame({ id: gameId })
+            console.log("Delete")
+            const result = await deleteGame(Number(gameId))
             console.log(result)
         } catch (error) {
             console.error(error);
@@ -22,7 +23,7 @@ const DeleteGameButton: React.FC<GameIdProps> = ({ gameId }) => {
                 <Grid item xs={1}>
                     <button
                         className="blank-button"
-                        onClick={() => handleDelete}>
+                        onClick={handleDelete}>
                         <DeleteForeverIcon />
                     </button>
                 </Grid>
