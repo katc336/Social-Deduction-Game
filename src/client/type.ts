@@ -10,6 +10,9 @@ interface GameIdProps {
  interface RoleIdProps {
     roleId: number;
  }
+ interface PlayerDeathProps {
+    playerId: number;
+ }
 
  interface PlayerIdProps {
     playerId: number;

@@ -31,14 +31,29 @@ const CharacterSetUp: React.FC = () => {
         <div>
             <AddRoles gameId={id} />
             <Typography sx={{ textAlign: "center" }}>
-                <Link to={`/story_teller/char-select/${gameId}`}>
-                    <button
-                        className="return-button ">
-                        <Typography variant="h6">
-                            Confirm Script
-                        </Typography>
-                    </button>
-                </Link>
+                {data && (data.players && data.players.length === 0)
+                    ?
+                    <div>
+                        <Link to={`/story_teller/char-select/${gameId}`}>
+                            <button className="return-button ">
+                                <Typography variant="h6">
+                                    Confirm Script
+                                </Typography>
+                            </button>
+                        </Link>
+                    </div>
+                    :
+                    <div>
+                        <Link to={`/story_teller/game_start/${gameId}`}>
+                            <button className="return-button ">
+                                <Typography variant="h6">
+                                    Confirm Script
+                                </Typography>
+                            </button>
+                        </Link>
+                    </div>
+                }
+
             </Typography>
             <Box sx={{
                 backgroundImage: `url(${scrollMobile})`,

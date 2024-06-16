@@ -244,8 +244,29 @@ apiRouter.patch("/player/:id", requireUser, async (req: Request, res: Response, 
     } catch (error) {
         next(error);
     }
- });
- 
+});
+//<--------------------------------UPDATE PLAYER'S CHARACTER'S DEATH-------------------------------->
+apiRouter.patch("/player_death/:id", requireUser, async (req: Request, res: Response, next: NextFunction) => {
+    try {
+        const player = await prisma.player.findUnique({
+            where: { playerId: Number(req.params.id) },
+        });
+        if (player.alive === true) {
+            const updatedPlayer = await prisma.player.update({
+                data: { alive: false }
+            });
+            res.send(updatedPlayer);
+        } else {
+            const updatedPlayer = await prisma.player.update({
+                data: { alive: false }
+            });
+            res.send(updatedPlayer);
+        }
+    } catch (error) {
+        next(error);
+    }
+});
+
 
 //<--------------------------------DELETE PLAYER-------------------------------->
 apiRouter.delete("/player/:id", requireUser, async (req: Request, res: Response, next: NextFunction) => {
@@ -258,7 +279,7 @@ apiRouter.delete("/player/:id", requireUser, async (req: Request, res: Response,
             return res.status(404).send("Player not found");
         }
         const deletedPlayers = await prisma.players.delete({
-       
+
         });
         res.send(deletedPlayers);
     } catch (error) {

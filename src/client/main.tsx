@@ -14,6 +14,7 @@ import CharacterSetUp from "./components/GamePlay/GameSetup/CharacterSetUp";
 import SavedRoles from "./components/SavedGames/SavedRoles";
 import RolePicker from "./components/GamePlay/PickRoles/RolePicker";
 import PlayGame from "./components/GamePlay/PlayGame/PlayGame";
+import StartNewGameAlert from "./components/GamePlay/GameSetup/StartNewGameAlert";
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <React.StrictMode>
@@ -27,6 +28,7 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
           <Route path="/story_teller/roles" element={<SavedRoles />} />
           <Route path="/story_teller/new_game" element={<NewGameName />} />
           <Route path="/story_teller/my_game/:gameId" element={<CharacterSetUp />} />
+          <Route path="/story_teller/game_start/:gameId" element={<StartNewGameAlert />} />
           <Route path="/story_teller/char-select/:gameId" element={<RolePicker />} />
           <Route path="/story_teller/:gameId" element={<PlayGame />} />
           <Route path="/story_teller/prev/:gameId" element={""} />

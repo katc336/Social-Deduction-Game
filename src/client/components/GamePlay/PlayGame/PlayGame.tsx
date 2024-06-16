@@ -8,8 +8,9 @@ import { useParams } from "react-router-dom";
 import { useGetSingleGameQuery } from "../../../../redux/api";
 import ReturnDashButton from "../Shared/ReturnDashButton";
 import UpdateRole from "./UpdateRole";
+import UpdateDeath from "./UpdateDeath";
 
-const PlayGame = () => {
+const PlayGame: React.FC = () => {
   const [updatePlayer, setUpdatePlayer] = useState(false);
   const { gameId } = useParams();
   const id = Number(gameId);
@@ -46,6 +47,14 @@ const PlayGame = () => {
         const role = data.roles.find((role: any) => role.roleId === player.roleId);
         return (
           <div key={player.playerId}>
+            <Box sx={{
+              position: "absolute",
+              top: calculateY(index, data.players.length) - 30,
+              left: calculateX(index, data.players.length) - 35,
+              zIndex: 1
+            }}>
+              <UpdateDeath playerId={player.playerId} />
+            </Box>
             <Card
               onClick={() => {
                 console.log(`Clicked on ${player.name}`);
@@ -73,7 +82,7 @@ const PlayGame = () => {
                   {player.name}
                 </Typography>
                 <Typography sx={{ fontFamily: "fantasy" }}>
-                  {role.name}
+                  {role && role.name}
                 </Typography>
               </Box>
             </Card>

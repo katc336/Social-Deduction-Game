@@ -1,4 +1,3 @@
-
 import Box from "@mui/material/Box"
 import TextField from "@mui/material/TextField";
 import Stack from "@mui/material/Stack";
@@ -17,10 +16,10 @@ const UpdateRole: React.FC<PlayerIdProps> = ({ playerId, gameId, roleId, origina
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
        try {
            event.preventDefault();
-           const result = await updatePlayer({ playerId, name, roleName: role, gameId }); // Update roleName to role
+           const result = await updatePlayer({ playerId, name, roleName: role, gameId }); 
            if ("data" in result) {
                setName("");
-               setRole(""); // Reset role state as well
+               setRole(""); 
                console.log(result);
            }
        } catch (error) {
@@ -35,6 +34,10 @@ const UpdateRole: React.FC<PlayerIdProps> = ({ playerId, gameId, roleId, origina
                 backgroundSize: "contain",
                 backgroundRepeat: "no-repeat",
                 backgroundPosition: "center",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                flexDirection: "column",
                 p: isMobile ? 5 : 10,
                 mt: "30vh"
             }}>

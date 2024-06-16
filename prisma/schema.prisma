@@ -27,13 +27,14 @@ model Game {
   storyteller   User     @relation(fields: [storytellerId], references: [id], onDelete: Cascade)
   storytellerId Int
   roles         Role[]
-  players       Player[] 
+  players       Player[]
 }
 
 model Role {
   roleId        Int      @id @default(autoincrement())
   name          String
   description   String?
+  updated       Boolean  @default(false)
   image         String?
   storyteller   User     @relation(fields: [storytellerId], references: [id], onDelete: Cascade)
   storytellerId Int
@@ -43,10 +44,11 @@ model Role {
 }
 
 model Player {
-  playerId Int    @id @default(autoincrement())
+  playerId Int     @id @default(autoincrement())
   name     String
-  role     Role?  @relation(fields: [roleId], references: [roleId])
+  alive    Boolean @default(true)
+  role     Role?   @relation(fields: [roleId], references: [roleId])
   roleId   Int?
-  Game     Game?  @relation(fields: [gameId], references: [id])
+  Game     Game?   @relation(fields: [gameId], references: [id])
   gameId   Int?
 }

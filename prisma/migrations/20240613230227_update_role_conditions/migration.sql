@@ -1,0 +1,3 @@
+-- AlterTable
+ALTER TABLE "Role" ADD COLUMN     "alive" BOOLEAN NOT NULL DEFAULT true,
+ADD COLUMN     "updated" BOOLEAN NOT NULL DEFAULT false;

@@ -116,6 +116,14 @@ const api = createApi({
             }),
             invalidatesTags: ["Game"]
         }),
+        updatePlayeDeath: builder.mutation({
+            query: ({ playerId }) => ({
+                url: `/api/player/${playerId}`,
+                method: 'PATCH',
+                body: { playerId }
+            }),
+            invalidatesTags: ["Game"]
+        }),
     })
 });
 export default api;
@@ -141,7 +149,9 @@ export const {
     useDeleteRoleMutation,
     //Add player
     useAddNewPlayerMutation,
-    //Update player (name and role)
-    useUpdatePlayerMutation
+    //Update player 
+    useUpdatePlayerMutation,
+    //Update player's death
+    useUpdatePlayeDeathMutation,
 } = api;
 
