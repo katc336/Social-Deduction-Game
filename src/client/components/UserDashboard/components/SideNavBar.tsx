@@ -6,9 +6,11 @@ import { useLocation } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import navScroll from "../../../images/SideNavScroll.png"
 import NavButton from './NavButton';
+import MobileTheme from '../../MobileTheme';
 
 const SideNavBar = () => {
     const [activePage, setActivePage] = useState("");
+    const isMobile = MobileTheme();
     const location = useLocation();
     useEffect(() => {
         setActivePage(location.pathname);
@@ -21,7 +23,7 @@ const SideNavBar = () => {
                         backgroundColor: "transparent",
                         backgroundImage: `url(${navScroll})`,
                         backgroundSize: "100% 100%",
-                        width: 400,
+                        width: isMobile ? 250 : 400,
                         backgroundRepeat: "no-repeat",
                         backgroundPosition: "center",
                     }
@@ -33,7 +35,7 @@ const SideNavBar = () => {
                     <NavButton text={"New Game"} />
                 </Link>
                 <Link to="/story_teller/old_games">
-                    <NavButton text={"Games and Scripts"} />
+                    <NavButton text={"Game Scripts"} />
                 </Link>
                 <Link to="/story_teller/roles">
                     <NavButton text={"All Saved Roles"} />

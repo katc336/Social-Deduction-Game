@@ -34,6 +34,23 @@ html {
   scale: 1.1;
 }
 
+.mobile-nav-button {
+  border: solid 3px #1E0542;
+  border-radius: 5px;
+  margin-left: 10px;
+  margin-top: 25px;
+  margin-bottom: 25px;
+  background-color: transparent;
+  padding: 5px;
+}
+
+.mobile-nav-button:hover {
+  cursor: pointer;
+  transition: 0.5s;
+  text-decoration: none;
+  scale: 1.1;
+}
+
 .nav2-button {
   border: solid 3px #1E0542;
   border-radius: 5px;
