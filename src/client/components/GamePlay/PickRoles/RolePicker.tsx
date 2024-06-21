@@ -1,3 +1,4 @@
+import Alert from '@mui/material/Alert';
 import Card from '@mui/material/Card';
 import Box from '@mui/material/Box';
 import Stack from "@mui/material/Stack";
@@ -22,6 +23,7 @@ const RolePicker: React.FC = () => {
     const [playerName, setPlayerName] = useState("");
     const [openRoles, setOpenRoles] = useState([]);
     const [chosenRoles, setChosenRoles] = useState([]);
+    const [roleAlert, setRoleAlert] = useState(false);
     const { isMobile } = MobileTheme();
     const [addPlayer] = useAddNewPlayerMutation();
     const { data, error, isLoading } = useGetSingleGameQuery(id);
@@ -41,11 +43,16 @@ const RolePicker: React.FC = () => {
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         try {
             event.preventDefault();
-            const result = await addPlayer({ name: playerName, gameId: id, roleId: Number(selectedRoleId) });
-            setSelectedRole({});
-            setSelectedRoleId(-1);
-            setPlayerName("");
-            setChosenRoles([...chosenRoles, selectedRoleId]);
+            if (playerName === "") {
+                setRoleAlert(true);
+            } else {
+                const result = await addPlayer({ name: playerName, gameId: id, roleId: Number(selectedRoleId) });
+                setRoleAlert(false);
+                setSelectedRole({});
+                setSelectedRoleId(-1);
+                setPlayerName("");
+                setChosenRoles([...chosenRoles, selectedRoleId]);
+            }
         } catch (error) {
             console.error(error);
         }
@@ -83,11 +90,15 @@ const RolePicker: React.FC = () => {
                                         mt: isMobile ? "17vh" : 0,
                                         mx: isMobile ? "28vw" : 70
                                     }} />
+                                {roleAlert &&
+                                    <Alert 
+                                    sx={{ my: 1, mx: isMobile ? "28vw" : 70 }}
+                                    severity="warning">
+                                        Add your name and select a new role token.
+                                    </Alert>
+                                }xxw
                                 <Typography
-                                    sx={{
-                                        textAlign: "center",
-                                        mt: isMobile ? "20vh" : 0
-                                    }}>
+                                    sx={{ textAlign: "center", mt: isMobile ? "20vh" : 0 }}>
                                     <button
                                         className="return-button"
                                         type="submit">
