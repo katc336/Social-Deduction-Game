@@ -5,7 +5,7 @@ import Grid from "@mui/material/Grid";
 import AddRoles from "./AddRoles"
 import { useParams, Link } from "react-router-dom"
 import { useGetSingleGameQuery } from "../../../../redux/api";
-import MobileTheme from "../../MobileTheme";
+import MobileTheme from "../../SizeThemes/MobileTheme";
 import scroll from "../../../images/scroll.png"
 import scrollMobile from "../../../images/scrollMobile.png"
 import DeleteRoleButton from "./DeleteRoleButton";
@@ -15,7 +15,7 @@ const CharacterSetUp: React.FC = () => {
     const { gameId } = useParams();
     const id = Number(gameId);
 
-    const isMobile = MobileTheme();
+    const { isMobile } = MobileTheme();
 
     const { data, error, isLoading } = useGetSingleGameQuery(id);
     if (isLoading) {
@@ -53,17 +53,17 @@ const CharacterSetUp: React.FC = () => {
                         </Link>
                     </div>
                 }
-
             </Typography>
             <Box sx={{
                 backgroundImage: `url(${scrollMobile})`,
                 backgroundSize: "cover",
                 backgroundRepeat: "no-repeat",
                 backgroundPosition: "center",
-                height: 800,
-                width: 200,
-                my: 10,
-                mx: 70,
+                height: isMobile ? 600 : 800,
+                width: isMobile ? 100 :200,
+                my: isMobile ? 1 : 10,
+                position: "abosolute",
+                mx: isMobile ? "15vw" : "30vw",
                 px: 10
             }}>
                 <Typography

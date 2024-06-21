@@ -2,7 +2,7 @@ import Typography from "@mui/material/Typography";
 import Stack from "@mui/material/Stack";
 import { useState } from "react"
 import { useUpdatePlayeDeathMutation } from "../../../../redux/api";
-import MobileTheme from "../../MobileTheme"
+import MobileTheme from "../../SizeThemes/MobileTheme"
 import { styled } from '@mui/material/styles';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Switch, { SwitchProps } from '@mui/material/Switch';
@@ -10,7 +10,7 @@ import Switch, { SwitchProps } from '@mui/material/Switch';
 const MaterialUISwitch = styled(Switch)(({ theme }) => ({
     width: 75,
     height: 30,
-    padding: 10,
+    padding:  10,
     '& .MuiSwitch-switchBase': {
         margin: 2,
         padding: 0,
@@ -54,7 +54,7 @@ const MaterialUISwitch = styled(Switch)(({ theme }) => ({
 
 const UpdateDeath: React.FC<PlayerDeathProps> = ({ playerId }) => {
     const [death, setDeath] = useState(false);
-    const isMobile = MobileTheme();
+    const { isMobile } = MobileTheme();
     const [updatePlayerDeath] = useUpdatePlayeDeathMutation();
 
     const handleChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -76,8 +76,11 @@ const UpdateDeath: React.FC<PlayerDeathProps> = ({ playerId }) => {
             <form onSubmit={(event) => event.preventDefault()}>
                 <Stack direction="row">
                     <Typography
-                        variant="h6"
-                        sx={{ color: "white", fontFamily: "fantasy" }}>
+                        sx={{
+                            fontSize: isMobile ? 12 : 18,
+                            color: "white",
+                            fontFamily: "fantasy"
+                        }}>
                         Alive
                     </Typography>
                     <FormControlLabel
@@ -89,8 +92,11 @@ const UpdateDeath: React.FC<PlayerDeathProps> = ({ playerId }) => {
                         label="" //No lable
                     />
                     <Typography
-                        variant="h6"
-                        sx={{ color: "white", fontFamily: "fantasy" }}>
+                        sx={{
+                            fontSize: isMobile ? 12 : 18,
+                            color: "#FFFBE8",
+                            fontFamily: "fantasy"
+                        }}>
                         Dead
                     </Typography>
                 </Stack>

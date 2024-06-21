@@ -6,7 +6,7 @@ import TextField from "@mui/material/TextField";
 import { useState } from "react";
 import { useNavigate } from 'react-router-dom';
 import { useAddNewGameMutation } from '../../../../redux/api';
-import MobileTheme from '../../MobileTheme';
+import MobileTheme from '../../SizeThemes/MobileTheme';
 import scroll from "../../../images/scroll.png"
 
 import ReturnDashButton from '../Shared/ReturnDashButton';

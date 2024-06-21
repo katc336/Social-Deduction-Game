@@ -6,7 +6,11 @@ import TextField from '@mui/material/TextField';
 import { useParams, Link } from "react-router-dom"
 import { useState, useEffect } from 'react';
 import { useGetSingleGameQuery } from '../../../../redux/api';
-import MobileTheme from '../../MobileTheme';
+import MobileTheme from '../../SizeThemes/MobileTheme';
+import calculateX from '../../SizeThemes/CalculateX';
+import calculateY from '../../SizeThemes/CalculateY';
+import calculateMobileX from '../../SizeThemes/CalculateMobileX';
+import calculateMobileY from '../../SizeThemes/CalculateYMobile';
 import ReturnDashButton from '../Shared/ReturnDashButton';
 import { useAddNewPlayerMutation } from '../../../../redux/api';
 
@@ -18,7 +22,7 @@ const RolePicker: React.FC = () => {
     const [playerName, setPlayerName] = useState("");
     const [openRoles, setOpenRoles] = useState([]);
     const [chosenRoles, setChosenRoles] = useState([]);
-    const isMobile = MobileTheme();
+    const { isMobile } = MobileTheme();
     const [addPlayer] = useAddNewPlayerMutation();
     const { data, error, isLoading } = useGetSingleGameQuery(id);
     useEffect(() => {
@@ -34,7 +38,6 @@ const RolePicker: React.FC = () => {
         }
     }, [data, chosenRoles]);
 
-
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         try {
             event.preventDefault();
@@ -47,22 +50,15 @@ const RolePicker: React.FC = () => {
             console.error(error);
         }
     };
-    const calculateX = (index: number, total: number) => {
-        const angle = (index / total) * Math.PI * 2;
-        return Math.cos(angle) * 350 + 700; //radius
-    }
-    const calculateY = (index: number, total: number) => {
-        const angle = (index / total) * Math.PI * 2;
-        return Math.sin(angle) * 350 + 500; //radius
-    }
+    // Mobile Circle
     console.log(openRoles)
     console.log(data)
     return (
         <div>
             <ReturnDashButton />
             <Box sx={{
-                my: 10,
-                py: 20
+                my: { sx: 1, sm: 10 },
+                py: { sx: 1, sm: 20 },
             }}>
                 {openRoles.length !== 0
                     ?//If there are still roles...
@@ -82,9 +78,16 @@ const RolePicker: React.FC = () => {
                                     size="small"
                                     variant="filled"
                                     color="secondary"
-                                    sx={{ backgroundColor: "white", mx: isMobile ? 70 : 5 }}
-                                />
-                                <Typography sx={{ textAlign: "center" }}>
+                                    sx={{
+                                        backgroundColor: "white",
+                                        mt: isMobile ? "17vh" : 0,
+                                        mx: isMobile ? "28vw" : 70
+                                    }} />
+                                <Typography
+                                    sx={{
+                                        textAlign: "center",
+                                        mt: isMobile ? "20vh" : 0
+                                    }}>
                                     <button
                                         className="return-button"
                                         type="submit">
@@ -95,7 +98,6 @@ const RolePicker: React.FC = () => {
                                 </Typography>
                             </Stack>
                         </form>
-
                     </div>
                     ://If all roles are selected...
                     <div>
@@ -123,10 +125,10 @@ const RolePicker: React.FC = () => {
                                 sx={{
                                     backgroundImage: "radial-gradient(circle,#ffdac4,#ffdac4,#ffdac4,#ffdac4, #ffdac4, #ffd9b7, #ffd8a9, #ffd99b, #ffda8d, #f8c27a, #f0ab6a, #e7935d, #c66156, #993550, #631348, #280138)",
                                     position: "absolute",
-                                    left: calculateX(index, data.roles.length),
-                                    top: calculateY(index, data.roles.length),
-                                    width: 120,
-                                    height: 120,
+                                    left: isMobile ? calculateMobileX(index, data.roles.length) : calculateX(index, data.roles.length),
+                                    top: isMobile ? calculateMobileY(index, data.roles.length) : calculateY(index, data.roles.length),
+                                    width: isMobile ? 70 : 120,
+                                    height: isMobile ? 70 : 120,
                                     borderRadius: 100
                                 }}
                             >
@@ -136,7 +138,8 @@ const RolePicker: React.FC = () => {
                                         sx={{
                                             fontFamily: "fantasy",
                                             textAlign: "center",
-                                            my: 6
+                                            my: isMobile ? 3 : 6,
+                                            fontSize: isMobile ? 10 : 18
                                         }}>
                                         {role.name}
                                     </Typography>

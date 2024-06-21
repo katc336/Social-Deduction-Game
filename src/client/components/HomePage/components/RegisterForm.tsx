@@ -6,7 +6,7 @@ import TextField from "@mui/material/TextField";
 import { useState } from "react";
 import { useRegisterMutation } from "../../../../redux/api";
 import { useNavigate } from "react-router-dom";
-import MobileTheme from "../../MobileTheme";
+import MobileTheme from "../../SizeThemes/MobileTheme";
 import authScroll from "../../../images/scroll.png"
 import authScrollMobile from "../../../images/scrollMobile.png";
 

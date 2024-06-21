@@ -1,8 +1,8 @@
 import Typography from "@mui/material/Typography"
-import MobileTheme from "../../MobileTheme"
+import MobileTheme from "../../SizeThemes/MobileTheme"
 
 const NavButton: React.FC<NavButtonProps> = ({ text }) => {
-    const isMobile = MobileTheme();
+    const { isMobile } = MobileTheme();
     return (
         <div>
             {isMobile

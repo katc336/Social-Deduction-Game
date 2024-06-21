@@ -1,12 +1,12 @@
 import Box from "@mui/material/Box"
 import Typography from "@mui/material/Typography";
 import Stack from "@mui/material/Stack";
-import MobileTheme from "../../MobileTheme"
+import MobileTheme from "../../SizeThemes/MobileTheme"
 import scroll from "../../../images/scroll.png"
 import { useParams } from "react-router-dom";
 
 const StartNewGameAlert: React.FC = () => {
-    const isMobile = MobileTheme();
+    const { isMobile } = MobileTheme();
     const { gameId } = useParams();
     const id = Number(gameId);
     return (

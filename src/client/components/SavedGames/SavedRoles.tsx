@@ -5,7 +5,7 @@ import Box from "@mui/material/Box";
 import { useGetAllRolesQuery } from "../../../redux/api"
 import ReturnDashButton from '../GamePlay/Shared/ReturnDashButton';
 import scroll from "../../images/scroll.png"
-import MobileTheme from '../MobileTheme';
+import MobileTheme from '../SizeThemes/MobileTheme';
 const SavedRoles: React.FC = () => {
     const { data, error, isLoading } = useGetAllRolesQuery({});
     if (isLoading) {
@@ -16,7 +16,7 @@ const SavedRoles: React.FC = () => {
     }
     console.log(data);
 
-    const isMobile = MobileTheme();
+    const { isMobile } = MobileTheme();
     return (
         <div>
             <ReturnDashButton />

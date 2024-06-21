@@ -1,16 +1,13 @@
 import Drawer from '@mui/material/Drawer';
 import Toolbar from '@mui/material/Toolbar';
-import Button from '@mui/material/Button';
 import { useState, useEffect } from "react";
 import { useLocation } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import navScroll from "../../../images/SideNavScroll.png"
 import NavButton from './NavButton';
-import MobileTheme from '../../MobileTheme';
 
 const SideNavBar = () => {
     const [activePage, setActivePage] = useState("");
-    const isMobile = MobileTheme();
     const location = useLocation();
     useEffect(() => {
         setActivePage(location.pathname);
@@ -23,7 +20,7 @@ const SideNavBar = () => {
                         backgroundColor: "transparent",
                         backgroundImage: `url(${navScroll})`,
                         backgroundSize: "100% 100%",
-                        width: isMobile ? 250 : 400,
+                        width: { xs: 230, sm: 400 },
                         backgroundRepeat: "no-repeat",
                         backgroundPosition: "center",
                     }
@@ -41,6 +38,7 @@ const SideNavBar = () => {
                     <NavButton text={"All Saved Roles"} />
                 </Link>
             </Drawer>
+
         </div>
     );
 }

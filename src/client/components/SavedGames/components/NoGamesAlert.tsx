@@ -1,11 +1,11 @@
-import Card from '@mui/material/Card';
-import Stack from '@mui/material/Stack';
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import scroll from "../../../images/scroll.png"
 import { Link } from 'react-router-dom';
+import MobileTheme from "../../SizeThemes/MobileTheme";
 
 const NoGamesAlert: React.FC = () => {
+    const { isMobile } = MobileTheme();
     return (
         <div>
             <Box sx={{
@@ -14,12 +14,12 @@ const NoGamesAlert: React.FC = () => {
                 backgroundRepeat: "no-repeat",
                 backgroundPosition: "center",
                 height: 250,
-                width: 600,
+                width: { xs: 300, sm: 600 },
                 py: 10,
-                mx: 50,
+                mx: { xs: 3, sm: 50 },
             }}>
                 <Typography
-                    variant="h3"
+                    variant={ isMobile ? "h6" : "h3"}
                     sx={{ mt: 10, textAlign: "center", fontFamily: "fantasy" }}>
                     You have no saved games
                 </Typography>
@@ -32,8 +32,8 @@ const NoGamesAlert: React.FC = () => {
                     </Link>
                 </Typography>
             </Box>
-
         </div>
     )
 }
+
 export default NoGamesAlert

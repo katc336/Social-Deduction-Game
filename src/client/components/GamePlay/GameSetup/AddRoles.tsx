@@ -4,7 +4,7 @@ import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import { useState } from "react";
-import MobileTheme from '../../MobileTheme';
+import MobileTheme from '../../SizeThemes/MobileTheme';
 import scroll from "../../../images/scroll.png"
 import { useAddNewRolesMutation } from "../../../../redux/api"
 import ReturnDashButton from '../Shared/ReturnDashButton';
@@ -12,21 +12,23 @@ import ReturnDashButton from '../Shared/ReturnDashButton';
 const AddRoles: React.FC<GameIdProps> = ({ gameId }) => {
     const [name, setName] = useState("");
     const [nameLengthError, setNameLengthError] = useState(false);
-    const isMobile = MobileTheme();
+    const { isMobile } = MobileTheme();
 
     const [addRole] = useAddNewRolesMutation();
 
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         try {
             event.preventDefault();
-            const result = await addRole({ name, gameId });
             if (name.trim() === "" || name.length > 20) {
                 setNameLengthError(true);
-            } else
+            } else {
+                const result = await addRole({ name, gameId });
+                setNameLengthError(false);
                 if ("data" in result) {
                     setName("");
                     console.log(result);
                 }
+            }
         } catch (error) {
             console.error(error);
         }
@@ -40,7 +42,7 @@ const AddRoles: React.FC<GameIdProps> = ({ gameId }) => {
                 backgroundRepeat: "no-repeat",
                 backgroundPosition: "center",
                 p: isMobile ? 5 : 10,
-                mt: 10
+                mt: isMobile ? 1 : 10
             }}>
                 <Typography
                     variant={isMobile ? "h6" : "h4"}
@@ -61,7 +63,11 @@ const AddRoles: React.FC<GameIdProps> = ({ gameId }) => {
                             onChange={(event) => setName(event.target.value)}
                             size="small"
                             color="secondary"
-                            sx={{ my: 1, mx: isMobile ? 70 : 5 }} />
+                            sx={{
+                                my: 1,
+                                position: "abosolute",
+                                mx: isMobile ? "10vw" : "30vw"
+                            }} />
                         <Typography sx={{ textAlign: "center" }}>
                             <button
                                 className="auth-button"
@@ -78,8 +84,12 @@ const AddRoles: React.FC<GameIdProps> = ({ gameId }) => {
                 &&
                 <Alert
                     severity="error"
-                    sx={{ mx: 65, mt: 3 }}>
-                    Please make sure the role is 1-20 characters
+                    sx={{
+                        position: "abosolute",
+                        mx: isMobile ? "1vw" : "30vw",
+                        mt: isMobile ? 0 : 3
+                    }}>
+                    Make sure the role is 1-20 characters.
                 </Alert>
             }
         </div>
