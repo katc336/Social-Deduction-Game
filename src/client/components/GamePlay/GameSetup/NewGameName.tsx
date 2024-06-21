@@ -39,7 +39,7 @@ const NewGameName: React.FC = () => {
 
     return (
         <div>
-           <ReturnDashButton />
+            <ReturnDashButton />
             <Box sx={{
                 backgroundImage: `url(${scroll})`,
                 backgroundSize: "contain",
@@ -60,33 +60,37 @@ const NewGameName: React.FC = () => {
                 </Typography>
                 {nameLengthError
                     &&
-                    <Alert severity="error">
+                    <Alert
+                        severity="error"
+                        sx={{ mx: isMobile ? 0 : "25vw" }}
+                    >
                         Please make sure your name is 1-50 characters
                     </Alert>
                 }
-                <Box sx={{ mx: isMobile ? 5 : 50 }}>
-                    <form onSubmit={handleSubmit}>
-                        <Stack direction="column">
-                            <TextField
-                                label="Add New Game's Name"
-                                placeholder="Add New Game's Name"
-                                value={name}
-                                onChange={(event) => setName(event.target.value)}
-                                size="small"
-                                color="secondary"
-                                sx={{ my: 1 }} />
-                            <Typography sx={{ textAlign: "center" }}>
-                                <button
-                                    className={ isMobile ? "nav2-mobile-button" : "nav2-button"}
-                                    type="submit">
-                                    <Typography sx={{ color: "#1E0542", }}>
-                                        Create
-                                    </Typography>
-                                </button>
-                            </Typography>
-                        </Stack>
-                    </form>
-                </Box>
+                <form onSubmit={handleSubmit}>
+                    <Stack direction="column">
+                        <TextField
+                            label="Add New Game's Name"
+                            placeholder="Add New Game's Name"
+                            value={name}
+                            onChange={(event) => setName(event.target.value)}
+                            size="small"
+                            color="secondary"
+                            sx={{
+                                mx: isMobile ? 0 : "25vw",
+                                my: 1
+                            }} />
+                        <Typography sx={{ textAlign: "center" }}>
+                            <button
+                                className={isMobile ? "nav2-mobile-button" : "nav2-button"}
+                                type="submit">
+                                <Typography sx={{ color: "#1E0542", }}>
+                                    Create
+                                </Typography>
+                            </button>
+                        </Typography>
+                    </Stack>
+                </form>
             </Box>
         </div>
     );
