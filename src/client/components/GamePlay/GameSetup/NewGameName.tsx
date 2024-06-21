@@ -77,7 +77,7 @@ const NewGameName: React.FC = () => {
                                 sx={{ my: 1 }} />
                             <Typography sx={{ textAlign: "center" }}>
                                 <button
-                                    className="auth-button"
+                                    className={ isMobile ? "nav2-mobile-button" : "nav2-button"}
                                     type="submit">
                                     <Typography sx={{ color: "#1E0542", }}>
                                         Create

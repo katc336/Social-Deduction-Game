@@ -35,8 +35,8 @@ const CharacterSetUp: React.FC = () => {
                     ?
                     <div>
                         <Link to={`/story_teller/char-select/${gameId}`}>
-                            <button className="return-button ">
-                                <Typography variant="h6">
+                            <button className={isMobile ? "return-mobile-button" : "return-button"}>
+                                <Typography>
                                     Confirm Script
                                 </Typography>
                             </button>

@@ -23,7 +23,7 @@ const Dashboard: React.FC = () => {
                 <Typography
                     sx={{ 
                         fontFamily: "fantasy", 
-                        color: "white",
+                        color: "#FFFBE8",
                         fontSize: { xs: 20, sm: 70 }
                      }}
                 >

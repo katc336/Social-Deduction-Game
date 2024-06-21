@@ -78,7 +78,7 @@ const UpdateDeath: React.FC<PlayerDeathProps> = ({ playerId }) => {
                     <Typography
                         sx={{
                             fontSize: isMobile ? 12 : 18,
-                            color: "white",
+                            color: "#FFFBE8",
                             fontFamily: "fantasy"
                         }}>
                         Alive

@@ -79,7 +79,7 @@ const RolePicker: React.FC = () => {
                                     variant="filled"
                                     color="secondary"
                                     sx={{
-                                        backgroundColor: "white",
+                                        backgroundColor: "#FFFBE8",
                                         mt: isMobile ? "17vh" : 0,
                                         mx: isMobile ? "28vw" : 70
                                     }} />

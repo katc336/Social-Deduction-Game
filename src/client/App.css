@@ -65,8 +65,24 @@ html {
   scale: 1.1;
 }
 
+.nav2-mobile-button {
+  border: solid 2px #1E0542;
+  border-radius: 5px;
+  background-color: transparent;
+  padding: 3px;
+  width: 100px;
+  margin-bottom: 15px;
+}
+
+.nav2-mobile-button:hover {
+  cursor: pointer;
+  transition: 0.5s;
+  text-decoration: none;
+  scale: 1.1;
+}
+
 .return-button {
-  border: solid 3px #1E0542;
+  border: solid 3px transparent;
   border-radius: 5px;
   margin-left: 20px;
   margin-top: 50px;
@@ -84,6 +100,23 @@ html {
   scale: 1.1;
 }
 
+.return-mobile-button {
+  border: solid 3px transparent;
+  border-radius: 5px;
+  margin-left: 10px;
+  background-image: radial-gradient(circle,#ffdac4,#ffdac4,#ffdac4,#ffdac4, #ffdac4, #ffd9b7, #ffd8a9, #ffd99b, #ffda8d, #f8c27a, #f0ab6a, #e7935d, #c66156, #993550, #631348, #280138);
+  padding-top: 5px;
+  padding-bottom: 5px;
+  padding-right: 25px;
+  padding-left: 25px;
+}
+
+.return-mobile-button:hover {
+  cursor: pointer;
+  transition: 0.5s;
+  text-decoration: none;
+  scale: 1.1;
+}
 .blank-button {
   background-color: transparent;
   border: transparent;

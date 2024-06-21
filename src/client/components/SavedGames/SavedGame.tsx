@@ -8,8 +8,10 @@ import ReturnDashButton from '../GamePlay/Shared/ReturnDashButton';
 import PlayButton from './components/PlayButton';
 import scroll from "../../images/scroll.png"
 import NoGamesAlert from './components/NoGamesAlert';
+import MobileTheme from '../SizeThemes/MobileTheme';
 
 const SavedGame: React.FC = () => {
+    const { isMobile } = MobileTheme();
     const { data, error, isLoading } = useGetAllGamesQuery({});
     if (isLoading) {
         console.log("Loading...")
@@ -37,24 +39,23 @@ const SavedGame: React.FC = () => {
                                 <div key={game.id}>
                                     <Box sx={{
                                         backgroundImage: `url(${scroll})`,
-                                        backgroundSize: "cover",
+                                        backgroundSize: "contain",
                                         backgroundRepeat: "no-repeat",
                                         backgroundPosition: "center",
-                                        width: 550,
-                                        py: 5,
-                                        m: 1,
+                                        width: isMobile ? "95vw" : 550,
+                                        py: isMobile ? 1 : 5,
                                     }}>
                                         <DeleteGameButton gameId={game.id} />
                                         <Typography
-                                            sx={{ textAlign: "center" }}
-                                            variant="h5">
+                                            sx={{ fontFamily: "fantasy", textAlign: "center" }}
+                                            variant={isMobile ? "h5" : "h4"}>
                                             {game.name}
                                         </Typography>
-                                        <Typography sx={{ textAlign: "center" }}>
+                                        <Typography sx={{ fontFamily: "fantasy", textAlign: "center" }}>
                                             {game.roles.length} player game
                                         </Typography>
                                         <Typography sx={{ textAlign: "center" }}>
-                                            <Box sx={{ mt: 3 }}>
+                                            <Box sx={{ my: isMobile ? 1 : 3 }}>
                                                 <Link to={`/story_teller/my_game/${game.id}`}>
                                                     <PlayButton gameId={game.id} />
                                                 </Link>
