@@ -291,16 +291,17 @@ apiRouter.delete("/player/:id", requireUser, async (req: Request, res: Response,
 apiRouter.delete("/game_players/:id", requireUser, async (req: Request, res: Response, next: NextFunction) => {
     try {
         const gameId = Number(req.params.id);
-        const game = await prisma.player.findUnique({
-            where: { gameId },
+        const game = await prisma.game.findUnique({
+            where: { id: gameId },
         });
-        if (!gameId) {
-            return res.status(404).send("Game not found");
+        if (!game) {
+            return res.send(404).send("Game not found");
+        } else {
+            const deletedPlayers = await prisma.player.deleteMany({
+                where: { gameId: gameId },
+            });
+            res.send({ game, deletedPlayers });
         }
-        const deletedPlayers = await prisma.game.player.deleteMany({
-            where: { gameId },
-        });
-        res.send(deletedPlayers);
     } catch (error) {
         next(error);
     }

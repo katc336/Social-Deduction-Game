@@ -3,12 +3,28 @@ import Typography from "@mui/material/Typography";
 import Stack from "@mui/material/Stack";
 import MobileTheme from "../../SizeThemes/MobileTheme"
 import scroll from "../../../images/scroll.png"
-import { useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
+import { useDeleteAllPlayersMutation } from "../../../../redux/api";
 
 const StartNewGameAlert: React.FC = () => {
     const { isMobile } = MobileTheme();
     const { gameId } = useParams();
+    const navigate = useNavigate();
     const id = Number(gameId);
+    const [deleteAllPlayers] = useDeleteAllPlayersMutation();
+
+    const handleDelete = async (event: React.MouseEvent<HTMLButtonElement>) => {
+        try {
+            event.preventDefault();
+            console.log("Delete")
+            const result = await deleteAllPlayers(id)
+            console.log(result);
+            navigate(`/story_teller/char-select/${id}`)
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
     return (
         <div>
             <Box sx={{
@@ -27,10 +43,15 @@ const StartNewGameAlert: React.FC = () => {
                     There is already a game for this script.
                 </Typography>
                 <Stack direction="row" spacing={2}>
-                    <button className="nav2-button">
-                        Resume Game
-                    </button>
-                    <button className="nav2-button">
+                    <Link to={`/story_teller/${id}`}>
+                        <button
+                            className="nav2-button">
+                            Resume Game
+                        </button>
+                    </Link>
+                    <button
+                        onClick={handleDelete}
+                        className="nav2-button">
                         Start New Game
                     </button>
                 </Stack>

@@ -116,6 +116,17 @@ const api = createApi({
             }),
             invalidatesTags: ["Game"]
         }),
+        //DELETE PLAYER
+
+        //DELETE ALL PLAYERS
+        deleteAllPlayers: builder.mutation({
+            query: (gameId) => ({
+                url: `/api/game_players/${gameId}`,
+                method: 'DELETE',
+            }),
+            invalidatesTags: ["Game"]
+        }),
+        //UPDATE PLAYER'S DEATH
         updatePlayeDeath: builder.mutation({
             query: ({ playerId }) => ({
                 url: `/api/player/${playerId}`,
@@ -147,10 +158,12 @@ export const {
     useGetAllRolesQuery,
     //Delete Role
     useDeleteRoleMutation,
-    //Add player
+    //Add Player
     useAddNewPlayerMutation,
-    //Update player 
+    //Update Player 
     useUpdatePlayerMutation,
+    //Delete Alll Players
+    useDeleteAllPlayersMutation,
     //Update player's death
     useUpdatePlayeDeathMutation,
 } = api;

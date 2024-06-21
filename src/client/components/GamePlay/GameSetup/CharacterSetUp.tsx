@@ -34,7 +34,7 @@ const CharacterSetUp: React.FC = () => {
                 {data && (data.players && data.players.length === 0)
                     ?
                     <div>
-                        <Link to={`/story_teller/char-select/${gameId}`}>
+                        <Link to={`/story_teller/char-select/${id}`}>
                             <button className={isMobile ? "return-mobile-button" : "return-button"}>
                                 <Typography>
                                     Confirm Script
@@ -44,8 +44,8 @@ const CharacterSetUp: React.FC = () => {
                     </div>
                     :
                     <div>
-                        <Link to={`/story_teller/game_start/${gameId}`}>
-                            <button className="return-button ">
+                        <Link to={`/story_teller/game_start/${id}`}>
+                            <button className="return-button">
                                 <Typography variant="h6">
                                     Confirm Script
                                 </Typography>
