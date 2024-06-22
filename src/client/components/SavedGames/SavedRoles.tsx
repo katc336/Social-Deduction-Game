@@ -1,11 +1,12 @@
-import Card from '@mui/material/Card';
+import Box from "@mui/material/Box";
 import Stack from '@mui/material/Stack';
 import Typography from "@mui/material/Typography";
-import Box from "@mui/material/Box";
+import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import { useGetAllRolesQuery } from "../../../redux/api"
 import ReturnDashButton from '../GamePlay/Shared/ReturnDashButton';
 import scroll from "../../images/scroll.png"
 import MobileTheme from '../SizeThemes/MobileTheme';
+import DeleteRoleButton from "../GamePlay/GameSetup/DeleteRoleButton";
 const SavedRoles: React.FC = () => {
     const { data, error, isLoading } = useGetAllRolesQuery({});
     if (isLoading) {
@@ -14,8 +15,9 @@ const SavedRoles: React.FC = () => {
     if (error) {
         console.log(error)
     }
-    console.log(data);
-
+    if (data) {
+        console.log(data);
+    }
     const { isMobile } = MobileTheme();
     return (
         <div>
@@ -23,8 +25,7 @@ const SavedRoles: React.FC = () => {
             <Box>
                 <Stack
                     direction="row"
-                    flexWrap="wrap"
-                >
+                    flexWrap="wrap">
                     {data && data.map((role: any) => (
                         <div key={role.roleId}>
                             <Box sx={{
@@ -36,6 +37,7 @@ const SavedRoles: React.FC = () => {
                                 p: 5,
                                 m: 1,
                             }}>
+                                <DeleteRoleButton roleId={role.roleId} />
                                 <Typography
                                     sx={{ textAlign: "center" }}
                                     variant="h5">

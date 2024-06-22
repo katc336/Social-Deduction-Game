@@ -1,27 +1,25 @@
 import Grid from '@mui/material/Grid';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
-import { useDeleteGameMutation } from '../../../../redux/api';
+import { useDeleteRoleMutation } from '../../../../redux/api';
 import MobileTheme from '../../SizeThemes/MobileTheme';
 
-const DeleteGameButton: React.FC<GameIdProps> = ({ gameId }) => {
-    const [deleteGame] = useDeleteGameMutation();
+const DeleteRoleButton: React.FC<RoleIdProps> = ({ roleId }) => {
+    const [deleteRole] = useDeleteRoleMutation();
     const { isMobile } = MobileTheme();
     const handleDelete = async (event: React.MouseEvent<HTMLButtonElement>) => {
         event.preventDefault();
         try {
             console.log("Delete")
-            const result = await deleteGame(Number(gameId))
+            const result = await deleteRole(Number(roleId))
             console.log(result)
         } catch (error) {
             console.error(error);
         }
     }
-    console.log(gameId)
+    console.log(roleId)
     return (
         <div>
-            <Grid
-                sx={{ mt: isMobile ? 3 : "" }}
-                container>
+            <Grid container>
                 <Grid item xs={10} />
                 <Grid item xs={1}>
                     <button
@@ -34,4 +32,4 @@ const DeleteGameButton: React.FC<GameIdProps> = ({ gameId }) => {
         </div>
     )
 }
-export default DeleteGameButton
+export default DeleteRoleButton
