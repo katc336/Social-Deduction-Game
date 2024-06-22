@@ -21,34 +21,33 @@ const PlayGame: React.FC = () => {
   const id = Number(gameId);
   const { isMobile } = MobileTheme();
   const { data, error, isLoading } = useGetSingleGameQuery(id);
+  //Game Data
   if (isLoading) {
     console.log("Loading...");
     return
   }
   if (data) {
-    console.log("Hi!")
     console.log(data)
   }
   if (error) {
     console.error(error);
   }
-
   return (
     <div>
       <ReturnDashButton />
       <Typography
         variant="h3"
-        sx={{ fontWeight: "bold", color: "#FFFBE8", fontFamily: "fantasy", textAlign: "center" }}>
+        sx={{ fontWeight: "bold", color: "#FFFBE8", fontFamily: "fantasy", textAlign: "center", my: 1 }}>
         {data && data.name}
       </Typography>
-      {data && data.players.map((player: any, index: number) => {
+      {data && data.players.map((player: any) => {
         const role = data.roles.find((role: any) => role.roleId === player.roleId);
         return (
           <div key={player.playerId}>
             <Box sx={{
               position: "absolute",
-              top: isMobile  ? calculateMobileY (index, data.players.length) - 30 : calculateY(index, data.players.length) - 30,
-              left: isMobile ? calculateMobileX(index, data.players.length) -35 : calculateX(index, data.players.length) - 35,
+              top: isMobile ? calculateMobileY(player.playerId, data.players.length) - 30 : calculateY(player.playerId, data.players.length) - 30,
+              left: isMobile ? calculateMobileX(player.playerId, data.players.length) - 35 : calculateX(player.playerId, data.players.length) - 35,
               zIndex: 1
             }}>
               <UpdateDeath playerId={player.playerId} />
@@ -56,14 +55,14 @@ const PlayGame: React.FC = () => {
             <Card
               onClick={() => {
                 console.log(`Clicked on ${player.name}`);
-                setUpdatePlayer(player.playerId); // Update here with player.playerId
+                setUpdatePlayer(player.playerId); // Update with player.playerId
               }}
               elevation={10}
               sx={{
                 backgroundImage: "radial-gradient(circle,#ffdac4,#ffdac4,#ffdac4,#ffdac4, #ffdac4, #ffd9b7, #ffd8a9, #ffd99b, #ffda8d, #f8c27a, #f0ab6a, #e7935d, #c66156, #993550, #631348, #280138)",
                 position: "absolute",
-                left: isMobile ? calculateMobileX(index, data.roles.length) : calculateX(index, data.roles.length),
-                top: isMobile ? calculateMobileY(index, data.roles.length) : calculateY(index, data.roles.length),
+                left: isMobile ? calculateMobileX(player.playerId, data.roles.length) : calculateX(player.playerId, data.roles.length),
+                top: isMobile ? calculateMobileY(player.playerId, data.roles.length) : calculateY(player.playerId, data.roles.length),
                 width: isMobile ? 70 : 120,
                 height: isMobile ? 70 : 120,
                 borderRadius: 100
@@ -75,14 +74,16 @@ const PlayGame: React.FC = () => {
                   my: isMobile ? 1 : 3
                 }}>
                 <Typography
-                  variant={isMobile ? "h6" : "h5"}
-                  sx={{ fontFamily: "fantasy" }}>
+                  sx={{
+                    fontSize: isMobile ? 12 : 20,
+                    fontFamily: "fantasy"
+                  }}>
                   {player.name}
                 </Typography>
                 <Typography
                   sx={{
                     fontFamily: "fantasy",
-                    fontSize: isMobile ? 10 : 18
+                    fontSize: isMobile ? 10 : 16
                   }}>
                   {role && role.name}
                 </Typography>

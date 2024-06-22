@@ -80,17 +80,18 @@ const CharacterSetUp: React.FC = () => {
                 {data && data.roles.map((role: any) => (
                     <div key={role.roleId}>
                         <Grid container>
-                            <Grid item xs={10}>
+                            <Grid item xs={11}>
                                 <Typography
                                     sx={{
                                         fontFamily: "fantasy",
                                         textAlign: "center",
-                                        my: 1
+                                        my: 1,
+                                        fontSize: isMobile ? 14 : 20
                                     }}>
                                     {role.name}
                                 </Typography>
                             </Grid>
-                            <Grid item xs={2}>
+                            <Grid item xs={1}>
                                 <DeleteRoleButton roleId={role.roleId} />
                             </Grid>
                         </Grid>

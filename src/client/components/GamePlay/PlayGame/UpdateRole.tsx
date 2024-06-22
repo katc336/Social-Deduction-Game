@@ -1,26 +1,32 @@
+import Alert from "@mui/material/Alert";
 import Box from "@mui/material/Box"
 import TextField from "@mui/material/TextField";
 import Stack from "@mui/material/Stack";
 import { useState } from "react"
 import { useUpdatePlayerMutation } from "../../../../redux/api"
 import MobileTheme from "../../SizeThemes/MobileTheme"
-import scroll from "../../../images/scroll.png"
 
 const UpdateRole: React.FC<PlayerIdProps> = ({ playerId, gameId, roleId, originalName }) => {
     const { isMobile } = MobileTheme();
-    const [name, setName] = useState("");
+    const [name, setName] = useState(originalName);
     const [role, setRole] = useState("");
+    const [alert, setAlert] = useState(false);
 
     const [updatePlayer] = useUpdatePlayerMutation();
 
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         try {
             event.preventDefault();
-            const result = await updatePlayer({ playerId, name, roleName: role, gameId });
-            if ("data" in result) {
-                setName("");
-                setRole("");
-                console.log(result);
+            if (name.trim() === "" || name.length > 20 || role.trim() === "" || role.length > 20) {
+                setAlert(true);
+            } else {
+                const result = await updatePlayer({ playerId, name, roleName: role, gameId });
+                setAlert(false);
+                if ("data" in result) {
+                    setName(originalName);
+                    setRole("");
+                    console.log(result);
+                }
             }
         } catch (error) {
             console.error(error);
@@ -74,7 +80,33 @@ const UpdateRole: React.FC<PlayerIdProps> = ({ playerId, gameId, roleId, origina
                         </Box>
                     </Stack>
                 </form>
+                {isMobile
+                    ?
+                    <div />
+                    :
+                    <div>
+                        {alert &&
+                            <Alert severity="warning">
+                                Name and Role must be filled in and not exceed 20 characters
+                            </Alert>
+                        }
+                    </div>
+                }
             </Box>
+            {isMobile
+                ?
+                <div>
+                    {alert &&
+                        <Alert
+                            sx={{ mt: isMobile ? 12 : 40 }}
+                            severity="warning">
+                            Name and Role must be filled in and not exceed 20 characters
+                        </Alert>
+                    }
+                </div>
+                :
+                <div />
+            }
         </div>
     )
 }

@@ -218,7 +218,7 @@ apiRouter.patch("/player/:id", requireUser, async (req: Request, res: Response, 
                 data: {
                     storyteller: { connect: { id: reqUser.user.id } },
                     name: roleName,
-                    game: { connect: { id: gameId } }
+                   //Remove gameId: an updated role will only be attached to a player, not the game
                 }
             });
             const updatedPlayer = await prisma.player.update({
@@ -229,9 +229,7 @@ apiRouter.patch("/player/:id", requireUser, async (req: Request, res: Response, 
                 }
             });
             res.send({ newRole, updatedPlayer });
-        }
-        // If role DOES exist, create a new role
-        else {
+        } else {  // If role DOES exist, create a new role
             const updatedPlayer = await prisma.player.update({
                 where: { playerId: Number(req.params.id) },
                 data: {
