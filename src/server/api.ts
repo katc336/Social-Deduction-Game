@@ -84,25 +84,39 @@ apiRouter.delete("/my_game/:id", requireUser, async (req: Request, res: Response
 //<-----------------ADD ROLES----------------->
 apiRouter.post("/add_roles", async (req: Request, res: Response, next: NextFunction) => {
     try {
-        const { name, gameId } = req.body;
+        const { name, description, gameId } = req.body;
         const reqUser = req as any;
-        const newRole = await prisma.role.create({
-            data: {
-                storytellerId: reqUser.user.id,
-                name: name,
-                gameId: gameId
-            }
-        });
-        res.send(newRole);
+
+        if (!gameId) {
+            const newRole = await prisma.role.create({
+                data: {
+                    storytellerId: reqUser.user.id,
+                    name: name,
+                    description: description
+                }
+            });
+            res.send(newRole);
+        } else {
+            const newRole = await prisma.role.create({
+                data: {
+                    storytellerId: reqUser.user.id,
+                    name: name,
+                    description: description,
+                    games: { connect: { id: gameId } }
+                }
+            });
+            res.send({ newRole });
+        }
     } catch (error) {
         next(error);
     }
 });
+
 //<-----------------GET ALL ROLES----------------->
 apiRouter.get("/roles", requireUser, async (req: Request, res: Response, next: NextFunction) => {
     try {
         const reqUser = req as any;
-        const roles = await prisma.Role.findMany({
+        const roles = await prisma.role.findMany({
             where: { storytellerId: reqUser.user.id },
         })
         res.send(roles)
@@ -218,7 +232,7 @@ apiRouter.patch("/player/:id", requireUser, async (req: Request, res: Response, 
                 data: {
                     storyteller: { connect: { id: reqUser.user.id } },
                     name: roleName,
-                   //Remove gameId: an updated role will only be attached to a player, not the game
+                    //Remove gameId: an updated role will only be attached to a player, not the game
                 }
             });
             const updatedPlayer = await prisma.player.update({

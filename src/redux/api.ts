@@ -75,12 +75,12 @@ const api = createApi({
         }),
         //ADD ROLES
         addNewRoles: builder.mutation({
-            query: (name) => ({
+            query: ({name, description, gameId}) => ({
                 url: `/api/add_roles`,
                 method: 'POST',
-                body: name
+                body:{ name, description, gameId }
             }),
-            invalidatesTags: ["Game"]
+            invalidatesTags: ["Game", "Role"]
         }),
         //GET ALL ROLES
         getAllRoles: builder.query({

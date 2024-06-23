@@ -11,18 +11,18 @@ import ReturnDashButton from '../Shared/ReturnDashButton';
 
 const AddRoles: React.FC<GameIdProps> = ({ gameId }) => {
     const [name, setName] = useState("");
+    const [description, setDescription] = useState("");
     const [nameLengthError, setNameLengthError] = useState(false);
     const { isMobile } = MobileTheme();
 
     const [addRole] = useAddNewRolesMutation();
-
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         try {
             event.preventDefault();
             if (name.trim() === "" || name.length > 20) {
                 setNameLengthError(true);
             } else {
-                const result = await addRole({ name, gameId });
+                const result = await addRole({ name, description, gameId: Number(gameId) });
                 setNameLengthError(false);
                 if ("data" in result) {
                     setName("");
@@ -33,6 +33,7 @@ const AddRoles: React.FC<GameIdProps> = ({ gameId }) => {
             console.error(error);
         }
     };
+ 
     return (
         <div>
             <ReturnDashButton />

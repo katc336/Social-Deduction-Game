@@ -11,7 +11,7 @@ import Dashboard from "./components/UserDashboard/Dashboard";
 import SavedGame from "./components/SavedGames/SavedGame";
 import NewGameName from "./components/GamePlay/GameSetup/NewGameName";
 import CharacterSetUp from "./components/GamePlay/GameSetup/CharacterSetUp";
-import SavedRoles from "./components/SavedGames/SavedRoles";
+import SavedRoles from "./components/SavedRoles/SavedRoles";
 import RolePicker from "./components/GamePlay/PickRoles/RolePicker";
 import PlayGame from "./components/GamePlay/PlayGame/PlayGame";
 import StartNewGameAlert from "./components/GamePlay/GameSetup/StartNewGameAlert";

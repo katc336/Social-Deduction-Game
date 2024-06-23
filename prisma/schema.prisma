@@ -28,6 +28,7 @@ model Game {
   storytellerId Int
   roles         Role[]
   players       Player[]
+  winner        String?
 }
 
 model Role {
@@ -38,17 +39,25 @@ model Role {
   image         String?
   storyteller   User     @relation(fields: [storytellerId], references: [id], onDelete: Cascade)
   storytellerId Int
-  game          Game?    @relation(fields: [gameId], references: [id])
-  gameId        Int?
+  games         Game[]
   Player        Player[]
 }
 
+model Reminders {
+  reminderId     Int     @id @default(autoincrement())
+  content        String
+  image String?
+  Player         Player? @relation(fields: [playerPlayerId], references: [playerId], onDelete: Cascade)
+  playerPlayerId Int?
+}
+
 model Player {
-  playerId Int     @id @default(autoincrement())
+  playerId Int         @id @default(autoincrement())
   name     String
-  alive    Boolean @default(true)
-  role     Role?   @relation(fields: [roleId], references: [roleId])
+  alive    Boolean     @default(true)
+  reminder Reminders[]
+  role     Role?       @relation(fields: [roleId], references: [roleId], onDelete: Cascade)
   roleId   Int?
-  Game     Game?   @relation(fields: [gameId], references: [id])
+  Game     Game?       @relation(fields: [gameId], references: [id], onDelete: Cascade)
   gameId   Int?
 }

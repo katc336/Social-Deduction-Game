@@ -1,12 +1,12 @@
 import Box from "@mui/material/Box";
 import Stack from '@mui/material/Stack';
 import Typography from "@mui/material/Typography";
-import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
-import { useGetAllRolesQuery } from "../../../redux/api"
+import { useGetAllRolesQuery } from "../../../redux/api";
 import ReturnDashButton from '../GamePlay/Shared/ReturnDashButton';
 import scroll from "../../images/scroll.png"
 import MobileTheme from '../SizeThemes/MobileTheme';
 import DeleteRoleButton from "../GamePlay/GameSetup/DeleteRoleButton";
+import NoGameAddNewRole from "./components/NoGameAddNewRole";
 const SavedRoles: React.FC = () => {
     const { data, error, isLoading } = useGetAllRolesQuery({});
     if (isLoading) {
@@ -23,6 +23,7 @@ const SavedRoles: React.FC = () => {
         <div>
             <ReturnDashButton />
             <Box>
+                <NoGameAddNewRole />
                 <Stack
                     direction="row"
                     flexWrap="wrap">
@@ -30,10 +31,10 @@ const SavedRoles: React.FC = () => {
                         <div key={role.roleId}>
                             <Box sx={{
                                 backgroundImage: `url(${scroll})`,
-                                backgroundSize: "cover",
+                                backgroundSize: "contain",
                                 backgroundRepeat: "no-repeat",
                                 backgroundPosition: "center",
-                                width: 220,
+                                width: 250,
                                 p: 5,
                                 m: 1,
                             }}>
@@ -44,7 +45,7 @@ const SavedRoles: React.FC = () => {
                                     {role.name}
                                 </Typography>
                                 <Typography sx={{ textAlign: "center" }}>
-                                    {role.descpription}
+                                    {role.description}
                                 </Typography>
                                 <Typography sx={{ textAlign: "center" }}>
                                 </Typography>
