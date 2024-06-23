@@ -63,7 +63,7 @@ const CharacterSetUp: React.FC = () => {
                 width: isMobile ? 100 :200,
                 my: isMobile ? 1 : 10,
                 position: "abosolute",
-                mx: isMobile ? "15vw" : "30vw",
+                mx: isMobile ? "15vw" : "40vw",
                 px: 10
             }}>
                 <Typography

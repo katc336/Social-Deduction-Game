@@ -42,7 +42,7 @@ const AddRoles: React.FC<GameIdProps> = ({ gameId }) => {
                 backgroundSize: "contain",
                 backgroundRepeat: "no-repeat",
                 backgroundPosition: "center",
-                p: isMobile ? 5 : 10,
+                p: isMobile ? 5 : "5vw",
                 mt: isMobile ? 1 : 10
             }}>
                 <Typography
